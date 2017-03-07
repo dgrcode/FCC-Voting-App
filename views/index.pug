@@ -1,0 +1,13 @@
+html
+  head
+    title TESTING
+    include includes/links.pug
+    link(rel="stylesheet" href="../public/styles/css/index.css")
+
+  body
+    include login.modal.pug
+    include includes/scripts.pug
+
+    if debug
+      // insert the script for livereload if it is rendered in debug mode
+      script(src="//localhost:35729/livereload.js")

@@ -1,0 +1,45 @@
+{
+  "name": "voting-app",
+  "version": "1.0.0",
+  "description": "Voting App for the FCC Backend certificate",
+  "main": "server.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dgrcode/FCC-Voting-App.git"
+  },
+  "keywords": [
+    "app",
+    "FCC",
+    "backend",
+    "dynamic-web-app"
+  ],
+  "author": "Daniel Gonzalez Reina <dangonrei@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dgrcode/FCC-Voting-App/issues"
+  },
+  "homepage": "https://github.com/dgrcode/FCC-Voting-App#readme",
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "express": "^4.14.1",
+    "jquery": "^3.1.1",
+    "mongodb": "^2.2.24",
+    "passport": "^0.3.2",
+    "pug": "^2.0.0-beta11",
+    "webpack": "^2.2.1"
+  },
+  "devDependencies": {
+    "eslint": "^3.16.1",
+    "eslint-config-google": "^0.7.1",
+    "grunt": "^1.0.1",
+    "grunt-autoprefixer": "^3.0.4",
+    "grunt-contrib-connect": "^1.0.2",
+    "grunt-contrib-pug": "^1.0.0",
+    "grunt-contrib-sass": "^1.0.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "mocha": "^3.2.0"
+  }
+}

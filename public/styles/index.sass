@@ -1,0 +1,63 @@
+@import colors
+
+.navbar
+  height: 54px
+  background-color: #E3F2FD
+  //border-bottom: 1px solid rgba(0,0,0,0.3)
+  border-radius: 0
+
+
+.modal
+  text-align: center
+
+  .modal-body
+    padding-top: 30px
+    padding-bottom: 40px
+
+  .social-buttons
+    width: 80%
+    display: flex
+    justify-content: space-around
+    margin: auto
+
+  .login-social-btn
+    width: 3em
+    height: 3em
+    margin: 10px auto
+    display: inline-flex
+    justify-content: center
+    align-items: center
+    border-radius: 50%
+    border: 1px solid black
+
+  .login-separator
+    display: flex
+    align-items: center
+    justify-content: center
+    margin: 20px auto
+
+    *
+      margin: 10px
+    hr
+      width: 60px
+      height: 1px
+      display: inline-block
+
+  .form-control
+    width: 50%
+    margin: 10px auto
+
+  .btn-login
+    width: 50%
+    background-color: $primaryColor
+    color: white
+    margin: 5px auto
+    box-shadow: 0 0 5px 1px rgba(0,0,0,0.4)
+    transition: box-shadow 0.3s
+
+    &:hover
+      box-shadow: 0 0 0 rgba(0,0,0,0.3)
+
+  .modal-footer
+    a
+      color: $textColorSecondary

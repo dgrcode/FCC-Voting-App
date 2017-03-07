@@ -1,0 +1,32 @@
+.modal.fade.in#modal-login(role="dialog" style="display:block")
+  .modal-dialog(role="document")
+    .modal-content
+      .modal-header
+        button.close(
+          type="button"
+          data-dismiss="modal"
+          aria-label="Close") #[span(aria-hidden="true") &times;]
+        h1(style="display:none") Login
+        h2 Welcome!
+
+      .modal-body
+        .login-social-container
+          p Sign in with:
+          .social-buttons
+            button.login-social-btn(role="button") FB
+            button.login-social-btn(role="button") G
+            button.login-social-btn(role="button") GH
+            button.login-social-btn(role="button") T
+        .login-local-container
+          .login-separator
+            hr
+            span or
+            hr
+          .login-local-form
+            input.form-control(type="text" placeholder="email")
+            input.form-control(type="password" placeholder="password")
+            button.btn.btn-login Log in
+
+      .modal-footer
+        a(href="#") forgot your password?
+        //button.btn.btn-default(data-dismiss="modal") Cancel
