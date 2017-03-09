@@ -1,15 +1,13 @@
-.navbar { height: 54px; background-color: #E3F2FD; border-radius: 0; }
+.navbar { height: 54px; background-color: #16AAE5; border-radius: 0; }
 
 .modal { text-align: center; }
 .modal .modal-body { padding-top: 30px; padding-bottom: 40px; }
-.modal .social-buttons { width: 80%; display: flex; justify-content: space-around; margin: auto; }
-.modal .login-social-btn { width: 3em; height: 3em; margin: 10px auto; display: inline-flex; justify-content: center; align-items: center; border-radius: 50%; border: 1px solid black; }
-.modal .login-separator { display: flex; align-items: center; justify-content: center; margin: 20px auto; }
+.modal .social-buttons { width: 80%; display: -webkit-box; display: -ms-flexbox; display: flex; -ms-flex-pack: distribute; justify-content: space-around; margin: auto; }
+.modal .login-social-btn { width: 3em; height: 3em; margin: 10px auto; display: -webkit-inline-box; display: -ms-inline-flexbox; display: inline-flex; -webkit-box-pack: center; -ms-flex-pack: center; justify-content: center; -webkit-box-align: center; -ms-flex-align: center; align-items: center; border-radius: 50%; border: 1px solid black; }
+.modal .login-separator { display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-align: center; -ms-flex-align: center; align-items: center; -webkit-box-pack: center; -ms-flex-pack: center; justify-content: center; margin: 20px auto; }
 .modal .login-separator * { margin: 10px; }
 .modal .login-separator hr { width: 60px; height: 1px; display: inline-block; }
 .modal .form-control { width: 50%; margin: 10px auto; }
-.modal .btn-login { width: 50%; background-color: #055D81; color: white; margin: 5px auto; box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.4); transition: box-shadow 0.3s; }
+.modal .btn-login { width: 50%; background-color: #055D81; color: white; margin: 5px auto; box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.4); -webkit-transition: box-shadow 0.3s; transition: box-shadow 0.3s; }
 .modal .btn-login:hover { box-shadow: 0 0 0 rgba(0, 0, 0, 0.3); }
 .modal .modal-footer a { color: rgba(0, 0, 0, 0.54); }
-
-/*# sourceMappingURL=index.css.map */

@@ -1,6 +1,5 @@
 const express = require('express');
 const router = new express.Router();
-const passport = require('passport');
 const getPolls = require('../controllers/getPolls.server.js');
 const getPollInfo = require('../controllers/getPollInfo.server.js');
 
@@ -10,7 +9,11 @@ router.get('/', (req, res) => {
   getPolls(db)
   .then((pollsObj) => {
     // console.log(pollsObj);
-    res.render('index', {polls: pollsObj});
+    res.render('index', {
+      user: req.user,
+      hasUsername: !!req.user && !!req.user.username,
+      polls: pollsObj,
+    });
   })
   .catch((err) => {
     console.log('Error getting the polls');
@@ -32,8 +35,8 @@ router.get('/poll/:id', (req, res) => {
   });
 });
 
-router.post('/login', (req, res) => {
-  // TODO make login route
+router.get('/react', (req, res) => {
+
 });
 
 router.get('/:word', (req, res) => {

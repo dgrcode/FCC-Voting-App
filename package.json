@@ -4,6 +4,7 @@
   "description": "Voting App for the FCC Backend certificate",
   "main": "server.js",
   "scripts": {
+    "db": "mongod -dbpath ../data",
     "test": "mocha"
   },
   "repository": {
@@ -25,9 +26,14 @@
   "dependencies": {
     "bootstrap": "^3.3.7",
     "express": "^4.14.1",
+    "express-session": "^1.15.1",
     "jquery": "^3.1.1",
     "mongodb": "^2.2.24",
     "passport": "^0.3.2",
+    "passport-facebook": "^2.1.1",
+    "passport-github2": "^0.1.10",
+    "passport-google-oauth": "^1.0.0",
+    "passport-twitter": "^1.0.4",
     "pug": "^2.0.0-beta11",
     "webpack": "^2.2.1"
   },

@@ -1,13 +1,30 @@
 html
   head
-    title TESTING
+    title Voting | Polls
     include includes/links.pug
     link(rel="stylesheet" href="../public/styles/css/index.css")
 
   body
+    .navbar
+      if !user
+        a(href="#" data-toggle="modal" data-target="#modal-login") Login
+      else if hasUsername
+        a(href=`/user/${user.username}`) #{user.name}
+      else
+        a(href='#') #{user.name}
+      if user && !hasUsername
+        .warning MISSING USERNAME
+    .container-fluid
+      h1 Voting App prueba
+
+      // h2 #{user.name}
+
+      ul
+        each poll in polls
+          li #[a(href=`/poll/${poll._id}`) #{poll.name} #[span #{poll.dateCreated}]]
+
     include login.modal.pug
     include includes/scripts.pug
-
     if debug
       // insert the script for livereload if it is rendered in debug mode
       script(src="//localhost:35729/livereload.js")

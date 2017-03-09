@@ -1,4 +1,4 @@
-.modal.fade.in#modal-login(role="dialog" style="display:block")
+.modal.fade#modal-login(role="dialog")
   .modal-dialog(role="document")
     .modal-content
       .modal-header
@@ -13,8 +13,8 @@
         .login-social-container
           p Sign in with:
           .social-buttons
-            button.login-social-btn(role="button") FB
-            button.login-social-btn(role="button") G
+            a.login-social-btn(href="/auth/facebook" role="button") FB
+            a.login-social-btn(href="/auth/google" role="button") G
             button.login-social-btn(role="button") GH
             button.login-social-btn(role="button") T
         .login-local-container

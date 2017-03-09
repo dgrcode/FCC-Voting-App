@@ -1,0 +1,10 @@
+User:{
+  "name": "string",
+  "username": "string",
+  "ids": [
+    {"provider": "string", "id": "string"}
+  ],
+  "emails": ["string"],
+  "gender": "string",
+  "photo": "string"
+}

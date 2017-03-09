@@ -1,11 +1,22 @@
 const express = require('express');
+const session = require('express-session');
 const mongo = require('mongodb');
+const passport = require('passport');
 const path = require('path');
 const routes = require('./app/routes');
+const login = require('./app/routes/login.js');
 
 const app = express();
 app.use('/public', express.static(path.normalize('./public')));
+app.use(session({
+  secret: 'votingapp',
+  resave: false,
+  saveUninitialized: true,
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(routes);
+app.use(login);
 app.set('view engine', 'pug');
 
 const MongoClient = mongo.MongoClient;
