@@ -6,14 +6,23 @@ html
 
   body
     .navbar
-      if !user
-        a(href="#" data-toggle="modal" data-target="#modal-login") Login
-      else if hasUsername
-        a(href=`/user/${user.username}`) #{user.name}
-      else
-        a(href='#') #{user.name}
-      if user && !hasUsername
-        .warning MISSING USERNAME
+      .container
+        a.nav-brand(href='#') Voting App
+        .nav-center.search-wrapper
+          input(type="text" placeholder="Search")
+          span.glyphicon.glyphicon-search(aria-hidden="true" role="button")
+        .nav-right
+          if !user
+            a(href="#" data-toggle="modal" data-target="#modal-login") Login
+          else
+            if hasUsername
+              a(href=`/user/${user.username}`) #{user.name}
+            else
+              a(href="#") #{user.name}
+            a(href="/logout") Logout
+          if user && !hasUsername
+            .warning MISSING USERNAME
+
     .container-fluid
       h1 Voting App prueba
 

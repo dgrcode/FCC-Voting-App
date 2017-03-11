@@ -35,12 +35,4 @@ router.get('/poll/:id', (req, res) => {
   });
 });
 
-router.get('/react', (req, res) => {
-
-});
-
-router.get('/:word', (req, res) => {
-  res.end(req.params.word);
-});
-
 module.exports = router;

@@ -7,7 +7,6 @@ const routes = require('./app/routes');
 const login = require('./app/routes/login.js');
 
 const app = express();
-app.use('/public', express.static(path.normalize('./public')));
 app.use(session({
   secret: 'votingapp',
   resave: false,
@@ -15,6 +14,7 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use('/public', express.static(path.normalize('./public')));
 app.use(routes);
 app.use(login);
 app.set('view engine', 'pug');
@@ -24,7 +24,6 @@ MongoClient.connect('mongodb://localhost:27017/votingapp')
 .then((db) => {
   // Link the database through the app. It will be available in the req object
   app.db = db;
-
   console.log('App listening on port ' + process.env.PORT);
   app.listen(process.env.PORT);
 })
