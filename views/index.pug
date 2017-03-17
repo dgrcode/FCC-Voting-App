@@ -12,16 +12,21 @@ html
           input(type="text" placeholder="Search")
           span.glyphicon.glyphicon-search(aria-hidden="true" role="button")
         .nav-right
-          if !user
-            a(href="#" data-toggle="modal" data-target="#modal-login") Login
-          else
-            if hasUsername
-              a(href=`/user/${user.username}`) #{user.name}
+          ul.usermenu
+            if !user
+              li
+                a(href="#" data-toggle="modal" data-target="#modal-login") Login
             else
-              a(href="#") #{user.name}
-            a(href="/logout") Logout
-          if user && !hasUsername
-            .warning MISSING USERNAME
+              li
+                span.glyphicon.glyphicon-plus(aria-hidden="true" role="button")
+              if hasUsername
+                li
+                  a(href=`/user/${user.username}`) #{user.name}
+              else
+                li
+                  a(href="#") #{user.name}
+              li
+                a(href="/logout") #[span.glyphicon.glyphicon-off(aria-hidden="true" role="button")]
 
     .container-fluid
       h1 Voting App prueba

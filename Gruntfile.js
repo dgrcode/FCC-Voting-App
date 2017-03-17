@@ -14,6 +14,7 @@ module.exports = function(grunt) {
       {name: 'gordito'},
       {name: 'feo'},
     ],
+    user: {name: 'Peter la anguila'},
   };
 
   // Project configuration.
