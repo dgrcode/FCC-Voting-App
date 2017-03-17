@@ -2,6 +2,7 @@ const express = require('express');
 const passport = require('passport');
 const router = new express.Router();
 const findUser = require('../controllers/findUser.server.js');
+// const getUserLocal = require('../controllers/getUserLocal.server.js');
 
 // Get the database from the request with a middleware
 let db;
@@ -24,6 +25,7 @@ const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
 const GitHubStrategy = require('passport-github2').Strategy;
 const TwitterStrategy = require('passport-twitter').Strategy;
+// const LocalStrategy = require('passport-local').Strategy;
 
 // Common user handling function
 const userHandlerFunction = (accessToken, refreshToken, profile, done) => {
@@ -48,6 +50,7 @@ const userHandlerFunction = (accessToken, refreshToken, profile, done) => {
         gender: profile.gender,
         photo: profile.photos[0].value,
       };
+      console.log(user);
       done(null, user);
     } else {
       done(null, user);
@@ -128,10 +131,48 @@ router.get('/auth/twitter/callback',
   userRedirect
 );
 
+/*
+// Local Login
+let localReq;
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+    console.log('Inside LocalStrategy');
+    getUserLocal(db, username)
+    .then((isNew, user) => {
+      if (isNew) {
+        // ask the user if he wants to create the account
+        localReq.isNewUser = true;
+        return(null, false, {message: 'Create new account?'});
+      }
+      // check if the password is correct
+      localReq.isNewUser = false;
+      if (!user.validPassword(password)) {
+        return done(null, false, {message: 'Incorrect username.'});
+      }
+      return done(null, user);
+    })
+    .catch((err) => {
+      console.log(err);
+      return done(err);
+    });
+  }
+));
+router.post('/login', setDb,
+  (req, res, next) => {
+    // to be able to set properties into localReq.
+    localReq = req;
+    next();
+  },
+  passport.authenticate('local'),
+  (req, res) => {
+    console.log(req.isNewUser);
+    res.redirect('/');
+  }
+);
+*/
+
 // Logout
 router.get('/logout', (req, res) => {
-  // req.session is undefined here. Check what is going on with express-session
-  // maybe I need a store??
   console.log('Logging out');
   req.session.destroy((err) => {
     res.redirect('/');
