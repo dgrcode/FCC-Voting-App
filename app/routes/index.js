@@ -35,4 +35,16 @@ router.get('/poll/:id', (req, res) => {
   });
 });
 
+router.get('/new', (req, res) => {
+  console.log('New poll');
+  console.log({
+    user: req.user,
+    hasUsername: !!req.user && !!req.user.username,
+  });
+  res.render('newpoll', {
+    user: req.user,
+    hasUsername: !!req.user && !!req.user.username,
+  });
+});
+
 module.exports = router;

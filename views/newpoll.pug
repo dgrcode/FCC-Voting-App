@@ -1,6 +1,6 @@
 html
   head
-    title Voting | Polls
+    title Voting | New Poll
     include includes/links.pug
     link(rel="stylesheet" href="../public/styles/css/index.css")
 
@@ -9,13 +9,8 @@ html
     .container-fluid
       h1 Voting App prueba
 
-      // h2 #{user.name}
+      h2 Aquí se mete el rollo
 
-      ul
-        each poll in polls
-          li #[a(href=`/poll/${poll._id}`) #{poll.name} #[span #{poll.dateCreated}]]
-
-    include login.modal.pug
     include includes/scripts.pug
     if debug
       // insert the script for livereload if it is rendered in debug mode

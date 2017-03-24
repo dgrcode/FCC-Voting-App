@@ -1,0 +1,23 @@
+.navbar
+  .container
+    a.nav-brand(href='#') Voting App
+    .nav-center.search-wrapper
+      input(type="text" placeholder="Search")
+      span.glyphicon.glyphicon-search(aria-hidden="true" role="button")
+    .nav-right
+      ul.usermenu
+        if !user
+          li
+            a(href="#" data-toggle="modal" data-target="#modal-login") Login
+        else
+          li
+            a(href="/new")
+              span.glyphicon.glyphicon-plus(aria-hidden="true" role="button")
+          if hasUsername
+            li
+              a(href=`/user/${user.username}`) #{user.name}
+          else
+            li
+              a(href="#") #{user.name}
+          li
+            a(href="/logout") #[span.glyphicon.glyphicon-off(aria-hidden="true" role="button")]
