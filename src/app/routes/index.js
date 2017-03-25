@@ -1,5 +1,6 @@
 const express = require('express');
 const router = new express.Router();
+const path = require('path');
 const getPolls = require('../controllers/getPolls.server.js');
 const getPollInfo = require('../controllers/getPollInfo.server.js');
 
@@ -9,11 +10,14 @@ router.get('/', (req, res) => {
   getPolls(db)
   .then((pollsObj) => {
     // console.log(pollsObj);
+    /*
     res.render('index', {
       user: req.user,
       hasUsername: !!req.user && !!req.user.username,
       polls: pollsObj,
     });
+    */
+    res.sendFile(path.resolve(__dirname + '/../../public/index.html'));
   })
   .catch((err) => {
     console.log('Error getting the polls');

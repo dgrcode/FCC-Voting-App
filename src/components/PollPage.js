@@ -1,17 +1,19 @@
 'use strict';
 
 import React from 'react';
-import { Link } from 'react-router-dom';
 import Navbar from './Navbar';
 //import NotFoundPage from './NotFoundPage';
 
 
-export default class Poll extends React.Component {
+export default class PollPage extends React.Component {
   render() {
     console.log('Pinta el Poll');
 
+    const user = this.props.user;
+
     return (
-      <div className="app-content-root">
+      <div className="app-root">
+        <Navbar user={user}/>
         <h1>{this.props.params.id}</h1>
       </div>
     );

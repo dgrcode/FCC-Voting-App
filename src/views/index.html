@@ -1,0 +1,55 @@
+
+<html>
+  <head>
+    <title>Voting | Polls</title>
+    <link rel="stylesheet" href="../public/vendor/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../public/styles/css/index.css"/>
+  </head>
+  <body>
+    <div class="navbar">
+      <div class="container"><a class="nav-brand" href="#">Voting App</a>
+        <div class="nav-center search-wrapper">
+          <input type="text" placeholder="Search"/><span class="glyphicon glyphicon-search" aria-hidden="true" role="button"></span>
+        </div>
+        <div class="nav-right">
+          <ul class="usermenu">
+            <li><a href="/new"><span class="glyphicon glyphicon-plus" aria-hidden="true" role="button"></span></a></li>
+            <li><a href="#">Peter la anguila</a></li>
+            <li><a href="/logout"><span class="glyphicon glyphicon-off" aria-hidden="true" role="button"></span></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <h1>Voting App prueba</h1>
+      <!-- h2 #{user.name}-->
+      <ul>
+        <li><a href="/poll/undefined">gordita <span></span></a></li>
+        <li><a href="/poll/undefined">guapa <span></span></a></li>
+        <li><a href="/poll/undefined">gordito <span></span></a></li>
+        <li><a href="/poll/undefined">feo <span></span></a></li>
+      </ul>
+    </div>
+    <div class="modal fade" id="modal-login" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h1 style="display:none;">Login</h1>
+            <h2>Welcome!</h2>
+          </div>
+          <div class="modal-body">
+            <div class="login-social-container">
+              <p>Sign in with:</p>
+              <div class="social-buttons"><a class="login-social-btn" href="/auth/facebook" role="button">FB</a><a class="login-social-btn" href="/auth/google" role="button">G</a><a class="login-social-btn" href="/auth/github" role="button">GH</a><a class="login-social-btn" href="/auth/twitter" role="button">T</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="../../public/vendor/jquery.min.js"></script>
+    <script src="../../public/vendor/bootstrap.min.js"></script>
+    <!-- insert the script for livereload if it is rendered in debug mode-->
+    <script src="//localhost:35729/livereload.js"></script>
+  </body>
+</html>

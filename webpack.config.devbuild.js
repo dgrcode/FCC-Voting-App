@@ -2,8 +2,10 @@
 
 const webpack = require('webpack');
 const path = require('path');
-//const extractTextPlugin = require('extract-text-webpack-plugin')
-var CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
+const extractTextPlugin = require('extract-text-webpack-plugin')
+const CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
+
+const extractSass = new extractTextPlugin({filename: "../styles/css/[name].css"});
 
 module.exports = {
   devtool: 'inline-sourcemap',
@@ -11,15 +13,6 @@ module.exports = {
     index: path.join(__dirname, 'src', 'index.client.js'),
     poll: path.join(__dirname, 'src', 'poll.client.js'),
     newPoll: path.join(__dirname, 'src', 'newpoll.client.js')
-  },
-  devServer: {
-    inline: true,
-    hot: true,
-    port: 3333,
-    contentBase: "src/public/",
-    historyApiFallback: {
-      index: '/index.html'
-    }
   },
   output: {
     path: path.join(__dirname, 'src','public','js'),
@@ -40,14 +33,16 @@ module.exports = {
       },
       {
         test: /\.sass$/,
-        use: ['style-loader', 'css-loader', 'sass-loader']
+        use: extractSass.extract({
+          use: ["css-loader", "sass-loader"]
+        })
       }
     ]
   },
   plugins: [
-    //new extractTextPlugin({filename: "[name].css"}),
+    extractSass,
     new CommonsChunkPlugin({
-      name: 'commons',
+      name: 'common',
       chunks: ['index', 'poll', 'newPoll'],
     })
   ]

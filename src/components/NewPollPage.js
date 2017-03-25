@@ -2,17 +2,19 @@
 
 import React from 'react';
 import Navbar from './Navbar';
+//import NotFoundPage from './NotFoundPage';
 
 
-export default class IndexPage extends React.Component {
+export default class PollPage extends React.Component {
   render() {
+    console.log('Pinta el Poll');
+
     const user = this.props.user;
-    console.log('Pinta el Layout');
 
     return (
       <div className="app-root">
         <Navbar user={user}/>
-        <div className="app-content">{this.props.children}</div>
+        <h1>New Poll</h1>
       </div>
     );
   }
