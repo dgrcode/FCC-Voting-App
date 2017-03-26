@@ -14,7 +14,14 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use('/public', express.static(path.normalize('./public')));
+app.use('/public/js/',
+  express.static(path.join(__dirname, 'public', 'js')));
+app.use('/public/vendor/',
+  express.static(path.join(__dirname, 'public', 'vendor')));
+app.use('/public/css/',
+  express.static(path.join(__dirname, 'public', 'styles', 'css')));
+app.use('/public/fonts/',
+  express.static(path.join(__dirname, 'public', 'fonts')));
 app.use(routes);
 app.use(login);
 app.set('view engine', 'pug');
