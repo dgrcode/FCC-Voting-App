@@ -13,10 +13,10 @@ const setDb = (req, res, next) => {
 };
 
 // Serialize and deserialize
-passport.serializeUser(function(user, done) {
+passport.serializeUser(function (user, done) {
   done(null, user);
 });
-passport.deserializeUser(function(user, done) {
+passport.deserializeUser(function (user, done) {
   done(null, user);
 });
 
@@ -34,7 +34,7 @@ const userHandlerFunction = (accessToken, refreshToken, profile, done) => {
     profile.emails = [];
   }
   if (!profile.hasOwnProperty('photos')) {
-    profile.photos = [{value: ''}];
+    profile.photos = [{ value: '' }];
   }
   findUser(db, profile)
   .then((user) => {
@@ -44,11 +44,11 @@ const userHandlerFunction = (accessToken, refreshToken, profile, done) => {
         name: profile.displayName,
         username: '',
         ids: [
-          {provider: profile.provider, id: profile.id},
+          { provider: profile.provider, id: profile.id }
         ],
         emails: profile.emails,
         gender: profile.gender,
-        photo: profile.photos[0].value,
+        photo: profile.photos[0].value
       };
       console.log(user);
       done(null, user);
@@ -73,12 +73,12 @@ passport.use(new GoogleStrategy(
   {
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: 'http://localhost:3000/auth/google/callback',
+    callbackURL: 'http://localhost:3000/auth/google/callback'
   },
   userHandlerFunction
 ));
 router.get('/auth/google', setDb,
-  passport.authenticate('google', {scope: ['profile', 'email']})
+  passport.authenticate('google', { scope: ['profile', 'email'] })
 );
 router.get('/auth/google/callback',
   passport.authenticate('google'),
@@ -90,7 +90,7 @@ passport.use(new FacebookStrategy(
   {
     clientID: process.env.FACEBOOK_APP_ID,
     clientSecret: process.env.FACEBOOK_APP_SECRET,
-    callbackURL: 'http://localhost:3000/auth/facebook/callback',
+    callbackURL: 'http://localhost:3000/auth/facebook/callback'
   },
   userHandlerFunction
 ));
@@ -105,12 +105,12 @@ passport.use(new GitHubStrategy(
   {
     clientID: process.env.GITHUB_CLIENT_ID,
     clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    callbackURL: 'http://localhost:3000/auth/github/callback',
+    callbackURL: 'http://localhost:3000/auth/github/callback'
   },
   userHandlerFunction
 ));
 router.get('/auth/github', setDb,
-  passport.authenticate('github', {scope: ['user:email']}));
+  passport.authenticate('github', { scope: ['user:email'] }));
 router.get('/auth/github/callback',
   passport.authenticate('github'),
   userRedirect
@@ -121,7 +121,7 @@ passport.use(new TwitterStrategy(
   {
     consumerKey: process.env.TWITTER_CONSUMER_KEY,
     consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
-    callbackURL: 'http://localhost:3000/auth/twitter/callback',
+    callbackURL: 'http://localhost:3000/auth/twitter/callback'
   },
   userHandlerFunction
 ));

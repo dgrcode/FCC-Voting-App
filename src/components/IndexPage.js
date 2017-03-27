@@ -6,7 +6,7 @@ import Navbar from './Navbar';
 
 
 class IndexPage extends React.Component {
-  render() {
+  render () {
     const user = this.props.user;
     const polls = this.props.polls;
 

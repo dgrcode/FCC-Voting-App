@@ -3,14 +3,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PollPage from './components/PollPage';
-import commonStyle from './public/styles/common.sass';
+import commonStyle_ from './public/styles/common.sass';
 
-const user = {name: 'Peter la anguila', username: 'peteruser'};
+const user = { name: 'Peter la anguila', username: 'peteruser' };
 const polls = [
-  {name: 'gordita'},
-  {name: 'guapa'},
-  {name: 'gordito'},
-  {name: 'feo'},
+  { name: 'gordita' },
+  { name: 'guapa' },
+  { name: 'gordito' },
+  { name: 'feo' }
 ];
 
 window.onload = () => {

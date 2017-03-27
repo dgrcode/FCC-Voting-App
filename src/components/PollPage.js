@@ -6,7 +6,7 @@ import Navbar from './Navbar';
 
 
 export default class PollPage extends React.Component {
-  render() {
+  render () {
     console.log('Pinta el Poll');
 
     const user = this.props.user;

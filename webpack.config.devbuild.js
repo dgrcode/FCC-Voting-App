@@ -1,11 +1,11 @@
-"use strict";
+'use strict';
 
-const webpack = require('webpack');
 const path = require('path');
-const extractTextPlugin = require('extract-text-webpack-plugin')
-const CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
 
-const extractSass = new extractTextPlugin({filename: "../styles/css/[name].css"});
+const extractSass = new ExtractTextPlugin(
+  { filename: '../styles/css/[name].css' });
 
 module.exports = {
   devtool: 'inline-sourcemap',
@@ -15,7 +15,7 @@ module.exports = {
     newPoll: path.join(__dirname, 'src', 'newpoll.client.js')
   },
   output: {
-    path: path.join(__dirname, 'src','public','js'),
+    path: path.join(__dirname, 'src', 'public', 'js'),
     filename: '[name].bundle.js'
   },
   module: {
@@ -29,12 +29,12 @@ module.exports = {
             cacheDirectory: 'babel_cache',
             presets: ['react', 'es2015']
           }
-        },
+        }
       },
       {
         test: /\.sass$/,
         use: extractSass.extract({
-          use: ["css-loader", "sass-loader"]
+          use: ['css-loader', 'sass-loader']
         })
       }
     ]
@@ -43,7 +43,7 @@ module.exports = {
     extractSass,
     new CommonsChunkPlugin({
       name: 'common',
-      chunks: ['index', 'poll', 'newPoll'],
+      chunks: ['index', 'poll', 'newPoll']
     })
   ]
 };

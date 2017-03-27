@@ -1,6 +1,5 @@
 "use strict";
 
-const webpack = require('webpack');
 const path = require('path');
 //const extractTextPlugin = require('extract-text-webpack-plugin')
 var CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
@@ -22,7 +21,7 @@ module.exports = {
     }
   },
   output: {
-    path: path.join(__dirname, 'src','public','js'),
+    path: path.join(__dirname, 'src', 'public', 'js'),
     filename: '[name].bundle.js'
   },
   module: {
@@ -36,7 +35,7 @@ module.exports = {
             cacheDirectory: 'babel_cache',
             presets: ['react', 'es2015']
           }
-        },
+        }
       },
       {
         test: /\.sass$/,
@@ -48,7 +47,7 @@ module.exports = {
     //new extractTextPlugin({filename: "[name].css"}),
     new CommonsChunkPlugin({
       name: 'commons',
-      chunks: ['index', 'poll', 'newPoll'],
+      chunks: ['index', 'poll', 'newPoll']
     })
   ]
 };

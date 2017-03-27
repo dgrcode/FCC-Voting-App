@@ -3,14 +3,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import IndexPage from './components/IndexPage';
-import commonStyle from './public/styles/common.sass';
+import commonStyle_ from './public/styles/common.sass';
 
-const user = {name: 'Peter la anguila', username: 'peteruser'};
+const user = { name: 'Peter la anguila', username: 'peteruser' };
 const polls = [
-  {name: 'gordita', id: 1},
-  {name: 'guapa', id: 2},
-  {name: 'gordito', id: 3},
-  {name: 'feo', id: 4},
+  { name: 'gordita', id: 1 },
+  { name: 'guapa', id: 2 },
+  { name: 'gordito', id: 3 },
+  { name: 'feo', id: 4 }
 ];
 
 window.onload = () => {

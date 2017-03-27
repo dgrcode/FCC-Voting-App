@@ -2,12 +2,12 @@ const findUser = (db, userInfo) => new Promise((resolve, reject) => {
   const listOfMails = userInfo.emails.map((val) => val.value);
   const providerIdObject = {};
   providerIdObject['ids.' + userInfo.provider] = userInfo.id;
-  db.collection('users').find({$or: [
-    {email: {$in: listOfMails}},
-    providerIdObject,
-  ]}).toArray()
+  db.collection('users').find({ $or: [
+    { email: { $in: listOfMails } },
+    providerIdObject
+  ] }).toArray()
   .then((docs) => {
-    if (docs.length == 0) {
+    if (docs.length === 0) {
       console.log('This is a new user');
       resolve(null);
     }

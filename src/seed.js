@@ -6,11 +6,11 @@ MongoClient.connect('mongodb://localhost:27017/votingapp')
   let dummyPoll = {
     name: 'Test poll',
     choices: [
-      {choice: 'option 1', votes: 3},
-      {choice: 'option 2', votes: 5},
-      {choice: 'option 3', votes: 9},
+      { choice: 'option 1', votes: 3 },
+      { choice: 'option 2', votes: 5 },
+      { choice: 'option 3', votes: 9 }
     ],
-    dateCreated: new Date(),
+    dateCreated: new Date()
   };
   db.collection('polls').insertOne(dummyPoll);
   db.close();

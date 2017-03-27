@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
       polls: pollsObj,
     });
     */
-    res.sendFile(path.resolve(__dirname + '/../../public/index.html'));
+    res.sendFile(path.join(__dirname, '/../../public', 'index.html'));
   })
   .catch((err) => {
     console.log('Error getting the polls');
@@ -31,7 +31,7 @@ router.get('/poll/:id', (req, res) => {
   const db = req.app.db;
   getPollInfo(db, req.params.id)
   .then((pollInfo) => {
-    res.render('poll', {poll: pollInfo});
+    res.render('poll', { poll: pollInfo });
   })
   .catch((err) => {
     console.log('Error getting poll info');
@@ -43,11 +43,11 @@ router.get('/new', (req, res) => {
   console.log('New poll');
   console.log({
     user: req.user,
-    hasUsername: !!req.user && !!req.user.username,
+    hasUsername: !!req.user && !!req.user.username
   });
   res.render('newpoll', {
     user: req.user,
-    hasUsername: !!req.user && !!req.user.username,
+    hasUsername: !!req.user && !!req.user.username
   });
 });
 

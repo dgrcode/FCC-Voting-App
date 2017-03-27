@@ -1,9 +1,9 @@
-var express = require('express');
-var webpack = require('webpack');
-var middleware = require('webpack-dev-middleware');
+const express = require('express');
+const webpack = require('webpack');
+const middleware = require('webpack-dev-middleware');
 
-var config = require('../webpack.config');
-var app = express();
+const config = require('../webpack.config');
+const app = express();
 
 console.log(config);
 
@@ -12,4 +12,4 @@ app.use(middleware(webpack(config), {
 }));
 
 
-var server = app.listen(5020);
+app.listen(5020);

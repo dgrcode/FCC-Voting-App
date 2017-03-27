@@ -10,7 +10,7 @@ const app = express();
 app.use(session({
   secret: 'votingapp',
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: true
 }));
 app.use(passport.initialize());
 app.use(passport.session());

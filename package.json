@@ -47,10 +47,13 @@
     "react-dom": "^15.4.2"
   },
   "devDependencies": {
+    "babel-eslint": "^7.2.1",
     "babel-loader": "^6.4.1",
     "css-loader": "^0.27.3",
     "eslint": "^3.16.1",
     "eslint-config-google": "^0.7.1",
+    "eslint-config-react": "^1.1.7",
+    "eslint-plugin-react": "^6.10.3",
     "extract-text-webpack-plugin": "^2.1.0",
     "grunt": "^1.0.1",
     "grunt-autoprefixer": "^3.0.4",
