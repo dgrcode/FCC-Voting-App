@@ -2,7 +2,6 @@
 
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
 
 const extractSass = new ExtractTextPlugin(
   { filename: '../styles/css/[name].css' });
@@ -10,9 +9,7 @@ const extractSass = new ExtractTextPlugin(
 module.exports = {
   devtool: 'inline-sourcemap',
   entry: {
-    index: path.join(__dirname, 'src', 'index.client.js'),
-    poll: path.join(__dirname, 'src', 'poll.client.js'),
-    newPoll: path.join(__dirname, 'src', 'newpoll.client.js')
+    index: path.join(__dirname, 'src', 'index.client.js')
   },
   output: {
     path: path.join(__dirname, 'src', 'public', 'js'),
@@ -40,10 +37,6 @@ module.exports = {
     ]
   },
   plugins: [
-    extractSass,
-    new CommonsChunkPlugin({
-      name: 'common',
-      chunks: ['index', 'poll', 'newPoll']
-    })
+    extractSass
   ]
 };

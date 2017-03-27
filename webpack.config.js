@@ -7,9 +7,7 @@ var CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
 module.exports = {
   devtool: 'inline-sourcemap',
   entry: {
-    index: path.join(__dirname, 'src', 'index.client.js'),
-    poll: path.join(__dirname, 'src', 'poll.client.js'),
-    newPoll: path.join(__dirname, 'src', 'newpoll.client.js')
+    index: path.join(__dirname, 'src', 'index.client.js')
   },
   devServer: {
     inline: true,
@@ -44,7 +42,6 @@ module.exports = {
     ]
   },
   plugins: [
-    //new extractTextPlugin({filename: "[name].css"}),
     new CommonsChunkPlugin({
       name: 'commons',
       chunks: ['index', 'poll', 'newPoll']
