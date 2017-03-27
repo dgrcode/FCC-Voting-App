@@ -1,8 +1,6 @@
 "use strict";
 
 const path = require('path');
-//const extractTextPlugin = require('extract-text-webpack-plugin')
-var CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
 
 module.exports = {
   devtool: 'inline-sourcemap',
@@ -12,15 +10,17 @@ module.exports = {
   devServer: {
     inline: true,
     hot: true,
+    compress: true,
     port: 3333,
-    contentBase: "src/public/",
+    contentBase: path.join(__dirname, 'dist'),
     historyApiFallback: {
       index: '/index.html'
     }
   },
   output: {
-    path: path.join(__dirname, 'src', 'public', 'js'),
-    filename: '[name].bundle.js'
+    path: path.join(__dirname, 'dist', 'js'),
+    filename: 'bundle.js',
+    publicPath: '/dist/js/'
   },
   module: {
     rules: [
@@ -40,11 +40,5 @@ module.exports = {
         use: ['style-loader', 'css-loader', 'sass-loader']
       }
     ]
-  },
-  plugins: [
-    new CommonsChunkPlugin({
-      name: 'commons',
-      chunks: ['index', 'poll', 'newPoll']
-    })
-  ]
+  }
 };

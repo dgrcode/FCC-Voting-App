@@ -13,7 +13,7 @@ module.exports = {
   },
   output: {
     path: path.join(__dirname, 'src', 'public', 'js'),
-    filename: '[name].bundle.js'
+    filename: 'bundle.js'
   },
   module: {
     rules: [
