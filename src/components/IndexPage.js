@@ -1,14 +1,20 @@
 'use strict';
 
 import React from 'react';
-import Navbar from './Navbar';
+import { Link } from 'react-router-dom'
 //import NotFoundPage from './NotFoundPage';
 
 
 class IndexPage extends React.Component {
   render () {
     const user = this.props.user;
-    const polls = this.props.polls;
+    const polls = [
+      { name: 'p1', id: 1 },
+      { name: 'p2', id: 2 },
+      { name: 'p3', id: 3 },
+      { name: 'p4', id: 4 },
+      { name: 'p5', id: 5 }
+    ];
 
     console.log('Pinta el IndexPage');
     console.log('User:');
@@ -16,14 +22,13 @@ class IndexPage extends React.Component {
 
     return (
       <div className="app-root">
-        <Navbar user={user}/>
         <h1>Voting App</h1>
         <ul>
         {
           polls.map((poll, id) => (
-            <li key={id}><a href={`/poll/${poll.id}`}>
+            <li key={id}><Link to={`/poll/${poll.id}`}>
               {poll.name} <span>{poll.dateCreated}</span>
-            </a></li>
+            </Link></li>
           ))
         }
         </ul>
@@ -31,11 +36,5 @@ class IndexPage extends React.Component {
     );
   }
 }
-
-IndexPage.contextTypes = {
-  router: function () {
-    return React.PropTypes.object.isRequired;
-  }
-};
 
 export default IndexPage;
