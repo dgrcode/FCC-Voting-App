@@ -1,6 +1,7 @@
 'use strict';
 
 const path = require('path');
+const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const extractSass = new ExtractTextPlugin(
@@ -9,11 +10,12 @@ const extractSass = new ExtractTextPlugin(
 module.exports = {
   devtool: 'inline-sourcemap',
   entry: {
-    index: path.join(__dirname, 'src', 'index.client.js')
+    index: path.join(__dirname, 'src', 'index.client.js'),
+    vendor: path.join(__dirname, 'src', 'vendor.client.js')
   },
   output: {
     path: path.join(__dirname, 'src', 'public', 'js'),
-    filename: 'bundle.js'
+    filename: '[name].bundle.js'
   },
   module: {
     rules: [
@@ -37,6 +39,10 @@ module.exports = {
     ]
   },
   plugins: [
-    extractSass
+    extractSass,
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery'
+    })
   ]
 };

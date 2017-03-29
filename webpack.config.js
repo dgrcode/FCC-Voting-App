@@ -1,11 +1,13 @@
 "use strict";
 
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
   devtool: 'inline-sourcemap',
   entry: {
-    index: path.join(__dirname, 'src', 'index.client.js')
+    index: path.join(__dirname, 'src', 'index.client.js'),
+    vendor: path.join(__dirname, 'src', 'vendor.client.js')
   },
   devServer: {
     inline: true,
@@ -19,7 +21,7 @@ module.exports = {
   },
   output: {
     path: path.join(__dirname, 'dist', 'js'),
-    filename: 'bundle.js',
+    filename: '[name].bundle.js',
     publicPath: '/dist/js/'
   },
   module: {
@@ -40,5 +42,11 @@ module.exports = {
         use: ['style-loader', 'css-loader', 'sass-loader']
       }
     ]
-  }
+  },
+  plugins: [
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery'
+    })
+  ]
 };

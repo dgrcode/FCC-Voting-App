@@ -8,11 +8,14 @@ const extractSass = new ExtractTextPlugin(
   { filename: '../styles/css/[name].css' });
 
 module.exports = {
-  entry: path.join(__dirname, 'src', 'index.client.js'),
+  entry: {
+    index: path.join(__dirname, 'src', 'index.client.js'),
+    vendor: path.join(__dirname, 'src', 'vendor.client.js')
+  },
   output: {
     path: path.join(__dirname, 'src', 'public', 'js'),
     publicPath: "/js/",
-    filename: 'bundle.js'
+    filename: '[name].bundle.js'
   },
   module: {
     rules: [{
@@ -33,9 +36,13 @@ module.exports = {
     }]
   },
   plugins: [
-    extractSass,
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production')
+    }),
+    extractSass,
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery'
     }),
     new webpack.optimize.UglifyJsPlugin({
       compress: { warnings: false },
