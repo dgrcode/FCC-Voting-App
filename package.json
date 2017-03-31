@@ -7,7 +7,6 @@
     "build": "webpack --config webpack.config.prod.js -p",
     "dev": "webpack-dev-server --inline --hot",
     "devbuild": "webpack --config webpack.config.devbuild.js",
-    "devserver": "node ./src/dev.server.js",
     "db": "mongod -dbpath ../data",
     "test": "mocha"
   },
@@ -45,8 +44,10 @@
     "pug": "^2.0.0-beta11",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
+    "react-redux": "^5.0.3",
     "react-router": "^4.0.0",
-    "react-router-dom": "^4.0.0"
+    "react-router-dom": "^4.0.0",
+    "redux": "^3.6.0"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.1",
