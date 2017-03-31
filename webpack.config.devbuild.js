@@ -5,7 +5,7 @@ const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const extractSass = new ExtractTextPlugin(
-  { filename: '../styles/css/[name].css' });
+  { filename: '../styles/[name].css' });
 
 module.exports = {
   devtool: 'inline-sourcemap',
@@ -14,8 +14,9 @@ module.exports = {
     vendor: path.join(__dirname, 'src', 'vendor.client.js')
   },
   output: {
-    path: path.join(__dirname, 'src', 'public', 'js'),
-    filename: '[name].bundle.js'
+    path: path.join(__dirname, 'dist', 'js'),
+    filename: '[name].bundle.js',
+    publicPath: '/dist/js/'
   },
   module: {
     rules: [

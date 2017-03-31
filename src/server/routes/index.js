@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
       polls: pollsObj,
     });
     */
-    res.sendFile(path.join(__dirname, '/../../public', 'index.html'));
+    res.sendFile(path.join(__dirname, '/../../../dist', 'index.html'));
   })
   .catch((err) => {
     console.log('Error getting the polls');

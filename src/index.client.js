@@ -2,7 +2,7 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Layout from './components/Layout';
+import Layout from './client/components/Layout';
 import commonStyle_ from './public/styles/common.sass';
 
 const user = { name: 'Peter la anguila', username: 'peteruser' };

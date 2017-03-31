@@ -3,8 +3,8 @@ const session = require('express-session');
 const mongo = require('mongodb');
 const passport = require('passport');
 const path = require('path');
-const routes = require('./app/routes');
-const login = require('./app/routes/login.js');
+const routes = require('./server/routes');
+const login = require('./server/routes/login.js');
 
 const app = express();
 app.use(session({
@@ -15,13 +15,13 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use('/public/js/',
-  express.static(path.join(__dirname, 'public', 'js')));
+  express.static(path.join(__dirname, '../dist', 'js')));
 app.use('/public/vendor/',
-  express.static(path.join(__dirname, 'public', 'vendor')));
-app.use('/public/css/',
-  express.static(path.join(__dirname, 'public', 'styles', 'css')));
+  express.static(path.join(__dirname, '../dist', 'vendor')));
+app.use('/public/styles/',
+  express.static(path.join(__dirname, '../dist', 'styles')));
 app.use('/public/fonts/',
-  express.static(path.join(__dirname, 'public', 'fonts')));
+  express.static(path.join(__dirname, '../dist', 'fonts')));
 app.use(routes);
 app.use(login);
 app.set('view engine', 'pug');
