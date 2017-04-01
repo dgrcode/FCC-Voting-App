@@ -1,9 +1,9 @@
 'use strict';
 
-export const createPoll = (pollTitle) => {
+export const createPoll = (poll) => {
   console.log('llama a la acción');
   return {
     type: 'ADD_POLL',
-    pollTitle
+    poll
   };
 };

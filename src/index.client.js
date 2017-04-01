@@ -2,6 +2,9 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import reducers from './client/reducers/reducers';
 import Layout from './client/components/Layout';
 import commonStyle_ from './public/styles/common.sass';
 
@@ -12,7 +15,12 @@ const polls = [
   { name: 'gordito', id: 3 },
   { name: 'feo', id: 4 }
 ];
+const store = createStore(reducers);
 
 window.onload = () => {
-  ReactDOM.render(<Layout user={user} polls={polls}/>, document.getElementById('main'));
+  ReactDOM.render(
+    <Provider store={store}>
+      <Layout/>
+    </Provider>
+    , document.getElementById('main'));
 };

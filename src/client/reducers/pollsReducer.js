@@ -5,10 +5,7 @@ export default function pollsReducer (state = [], action) {
   case 'ADD_POLL':
     console.log('PREVIO');
     console.log(state);
-    const newState = [...state, {
-      name: action.pollTitle,
-      id: state.length
-    }];
+    const newState = [...state, action.poll];
     console.log('POST');
     console.log(newState);
     return newState;
