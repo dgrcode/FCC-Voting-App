@@ -9,21 +9,18 @@ router.get('/', (req, res) => {
   const db = req.app.db;
   getPolls(db)
   .then((pollsObj) => {
-    // console.log(pollsObj);
-    /*
-    res.render('index', {
-      user: req.user,
-      hasUsername: !!req.user && !!req.user.username,
-      polls: pollsObj,
-    });
-    */
-    res.sendFile(path.join(__dirname, '/../../../dist', 'index.html'));
+    try {
+      res.cookie('polls', JSON.stringify(pollsObj));
+    } catch (e) {
+      console.log('Cookie not sent. Not available in time');
+    }
   })
   .catch((err) => {
     console.log('Error getting the polls');
     console.log(err);
     res.render('500');
   });
+  res.sendFile(path.join(__dirname, '/../../../dist', 'index.html'));
 });
 
 router.get('/poll/:id', (req, res) => {
