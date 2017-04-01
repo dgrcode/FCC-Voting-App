@@ -2,6 +2,7 @@
 
 const path = require('path');
 const webpack = require('webpack');
+const express = require('express');
 
 module.exports = {
   devtool: 'inline-sourcemap',
@@ -17,12 +18,21 @@ module.exports = {
     contentBase: path.join(__dirname, 'dist'),
     historyApiFallback: {
       index: '/index.html'
+    },
+    setup (app) {
+      app.use('/public/js/',
+        express.static(path.join(__dirname, 'dist', 'js')));
+      app.use('/public/vendor/',
+        express.static(path.join(__dirname, 'dist', 'vendor')));
+      app.use('/public/styles/',
+        express.static(path.join(__dirname, 'dist', 'styles')));
+      app.use('/public/fonts/',
+        express.static(path.join(__dirname, 'dist', 'fonts')));
     }
   },
   output: {
     path: path.join(__dirname, 'dist', 'js'),
-    filename: '[name].bundle.js',
-    publicPath: '/dist/js/'
+    filename: '[name].bundle.js'
   },
   module: {
     rules: [
