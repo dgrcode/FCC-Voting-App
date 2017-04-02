@@ -20,8 +20,6 @@ module.exports = {
       index: '/index.html'
     },
     setup (app) {
-      app.use('/public/js/',
-        express.static(path.join(__dirname, 'dist', 'js')));
       app.use('/public/vendor/',
         express.static(path.join(__dirname, 'dist', 'vendor')));
       app.use('/public/styles/',
@@ -32,6 +30,7 @@ module.exports = {
   },
   output: {
     path: path.join(__dirname, 'dist', 'js'),
+    publicPath: 'public/js',
     filename: '[name].bundle.js'
   },
   module: {
