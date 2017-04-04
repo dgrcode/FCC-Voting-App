@@ -5,9 +5,7 @@ import { Link } from 'react-router-dom';
 
 class PollsList extends React.Component {
   render () {
-    console.log('Pinta el PollsList');
     const polls = this.props.polls;
-    console.log(polls);
 
     return (
       <div>

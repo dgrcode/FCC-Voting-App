@@ -3,12 +3,11 @@ const passport = require('passport');
 const router = new express.Router();
 const findUser = require('../controllers/findUser.server.js');
 const cache = require('../cache/cache');
-// const getUserLocal = require('../controllers/getUserLocal.server.js');
 
 // Get the database from the request with a middleware
 let db;
 const setDb = (req, res, next) => {
-  console.log('asigna la base de datos');
+  //console.log('asigna la base de datos');
   db = req.app.db;
   next();
 };
@@ -26,11 +25,9 @@ const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
 const GitHubStrategy = require('passport-github2').Strategy;
 const TwitterStrategy = require('passport-twitter').Strategy;
-// const LocalStrategy = require('passport-local').Strategy;
 
 // Common user handling function
 const userHandlerFunction = (accessToken, refreshToken, profile, done) => {
-  // console.log(profile);
   if (!profile.hasOwnProperty('emails')) {
     profile.emails = [];
   }
@@ -134,46 +131,6 @@ router.get('/auth/twitter/callback',
   passport.authenticate('twitter'),
   userRedirect
 );
-
-/*
-// Local Login
-let localReq;
-passport.use(new LocalStrategy(
-  function(username, password, done) {
-    console.log('Inside LocalStrategy');
-    getUserLocal(db, username)
-    .then((isNew, user) => {
-      if (isNew) {
-        // ask the user if he wants to create the account
-        localReq.isNewUser = true;
-        return(null, false, {message: 'Create new account?'});
-      }
-      // check if the password is correct
-      localReq.isNewUser = false;
-      if (!user.validPassword(password)) {
-        return done(null, false, {message: 'Incorrect username.'});
-      }
-      return done(null, user);
-    })
-    .catch((err) => {
-      console.log(err);
-      return done(err);
-    });
-  }
-));
-router.post('/login', setDb,
-  (req, res, next) => {
-    // to be able to set properties into localReq.
-    localReq = req;
-    next();
-  },
-  passport.authenticate('local'),
-  (req, res) => {
-    console.log(req.isNewUser);
-    res.redirect('/');
-  }
-);
-*/
 
 // Logout
 router.get('/logout', (req, res) => {

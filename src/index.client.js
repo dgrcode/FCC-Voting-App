@@ -4,7 +4,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import { Router, Redirect } from 'react-router';
+import { Router } from 'react-router';
 import createBrowserHistory from 'history/createBrowserHistory';
 import reducers from './client/reducers/reducers';
 import Layout from './client/components/Layout';
@@ -47,16 +47,6 @@ window.onload = () => {
   if (historyCookie) {
     prevHistory = decodeURIComponent(historyCookie);
   }
-
-/*
-  const RenderHistoryOrLayout = () => {
-    // somehow location is defined here
-    if (prevHistory) {
-      history.push(prevHistory);
-    }
-    return <Layout location={location} />;
-  };
-*/
 
   ReactDOM.render(
     <Provider store={store}>

@@ -1,12 +1,11 @@
 'use strict';
 
 import React from 'react';
-//import NotFoundPage from './NotFoundPage';
 
 export default class Navbar extends React.Component {
   render () {
     const user = this.props.user;
-    const usera = this.props.username || '#';
+    const userLink = this.props.username || '#';
 
     const Options = () => {
       if (!user) {
@@ -17,17 +16,13 @@ export default class Navbar extends React.Component {
           <li><a href="/new">
             <span className="glyphicon glyphicon-plus" aria-hidden="true" role="button"/>
           </a></li>
-          <li><a href={usera}>{user.name}</a></li>
+          <li><a href={userLink}>{user.name}</a></li>
           <li><a href="/logout">
             <span className="glyphicon glyphicon-off" aria-hidden="true" role="button"/>
           </a></li>
         </div>
       );
     };
-
-    console.log('Pinta el Navbar');
-    console.log('User:');
-    console.log(user);
 
     return (
       <div className="navbar">

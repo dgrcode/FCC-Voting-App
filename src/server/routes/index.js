@@ -9,6 +9,7 @@ router.get('/', (req, res) => {
   const db = req.app.db;
   getPolls(db)
   .then((pollsObj) => {
+    //TODO change by using req.headersSent
     try {
       res.cookie('polls', JSON.stringify(pollsObj));
     } catch (e) {

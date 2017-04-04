@@ -1,15 +1,10 @@
 'use strict';
 
 import React from 'react';
-import { Link } from 'react-router-dom';
 import LoginButton from './LoginButton';
-//import NotFoundPage from './NotFoundPage';
-
 
 class LoginModal extends React.Component {
   render () {
-    console.log('Pinta el LoginModal');
-
     return (
       <div className="modal fade" id="modal-login" role="dialog">
         <div className="modal-dialog" role="document">

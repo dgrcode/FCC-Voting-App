@@ -1,8 +1,6 @@
 'use strict';
 
 import React from 'react';
-//import NotFoundPage from './NotFoundPage';
-
 
 export default class PollPage extends React.Component {
   render () {

@@ -2,11 +2,8 @@
 
 /*global $*/
 import React from 'react';
-//import { Link } from 'react-router-dom';
-
 
 class LoginButton extends React.Component {
-
   clickHandler = () => {
     $.ajax({
       url: '/api/history',
