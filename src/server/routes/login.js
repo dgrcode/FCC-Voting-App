@@ -2,6 +2,7 @@ const express = require('express');
 const passport = require('passport');
 const router = new express.Router();
 const findUser = require('../controllers/findUser.server.js');
+const cache = require('../cache/cache');
 // const getUserLocal = require('../controllers/getUserLocal.server.js');
 
 // Get the database from the request with a middleware
@@ -65,6 +66,8 @@ const userHandlerFunction = (accessToken, refreshToken, profile, done) => {
 const userRedirect = (req, res) => {
   // TODO here I should check if that's the first time and send the user to its
   // profile to fill everything
+  res.cookie('history', cache.get('prevHistory'));
+  console.log('sends cookie');
   res.redirect('/');
 };
 

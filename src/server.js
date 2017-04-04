@@ -3,8 +3,10 @@ const session = require('express-session');
 const mongo = require('mongodb');
 const passport = require('passport');
 const path = require('path');
+const bodyParser = require('body-parser');
 const routes = require('./server/routes');
 const login = require('./server/routes/login.js');
+const api = require('./server/routes/api.js');
 
 const app = express();
 app.use(session({
@@ -24,6 +26,8 @@ app.use('/public/fonts/',
   express.static(path.join(__dirname, '../dist', 'fonts')));
 app.use(routes);
 app.use(login);
+app.use(bodyParser.json());
+app.use(api);
 app.set('view engine', 'pug');
 
 const MongoClient = mongo.MongoClient;

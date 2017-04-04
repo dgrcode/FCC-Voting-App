@@ -4,11 +4,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
+import { Router, Redirect } from 'react-router';
+import createBrowserHistory from 'history/createBrowserHistory';
 import reducers from './client/reducers/reducers';
 import Layout from './client/components/Layout';
 import commonStyle_ from './public/styles/common.sass';
 
 const store = createStore(reducers);
+const history = createBrowserHistory();
 
 const getCookie = (name) => {
   const value = "; " + document.cookie;
@@ -36,9 +39,30 @@ window.onload = () => {
     console.log('No encuentra el polls');
   }
 
+  let historyCookie = getCookie('history');
+  deleteCookie('history');
+  console.log('historyCookie');
+  console.log(historyCookie);
+  let prevHistory = false;
+  if (historyCookie) {
+    prevHistory = decodeURIComponent(historyCookie);
+  }
+
+/*
+  const RenderHistoryOrLayout = () => {
+    // somehow location is defined here
+    if (prevHistory) {
+      history.push(prevHistory);
+    }
+    return <Layout location={location} />;
+  };
+*/
+
   ReactDOM.render(
     <Provider store={store}>
-      <Layout/>
+    <Router history={history} onUpdate={() => window.scrollTo(0, 0)}>
+      <Layout location={location} history={history} prevHistory={prevHistory}/>
+    </Router>
     </Provider>
     , document.getElementById('main'));
 };
