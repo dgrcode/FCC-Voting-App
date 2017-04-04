@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
+import LoginButton from './LoginButton';
 //import NotFoundPage from './NotFoundPage';
 
 
@@ -24,10 +25,10 @@ class LoginModal extends React.Component {
               <div className="login-social-container">
                 <p>Sign in with:</p>
                 <div className="social-buttons">
-                  <a className="login-social-btn" href="/auth/facebook" role="button">FB</a>
-                  <a className="login-social-btn" href="/auth/google" role="button">G</a>
-                  <a className="login-social-btn" href="/auth/github" role="button">GH</a>
-                  <a className="login-social-btn" href="/auth/twitter" role="button">T</a>
+                  <LoginButton location={this.props.location} provider="facebook">FB</LoginButton>
+                  <LoginButton location={this.props.location} provider="google">G</LoginButton>
+                  <LoginButton location={this.props.location} provider="github">GH</LoginButton>
+                  <LoginButton location={this.props.location} provider="twitter">T</LoginButton>
                 </div>
               </div>
             </div>

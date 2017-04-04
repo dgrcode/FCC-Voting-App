@@ -66,6 +66,7 @@ const userHandlerFunction = (accessToken, refreshToken, profile, done) => {
 const userRedirect = (req, res) => {
   // TODO here I should check if that's the first time and send the user to its
   // profile to fill everything
+  res.cookie('user', req.user);
   res.cookie('history', cache.get('prevHistory'));
   console.log('sends cookie');
   res.redirect('/');
