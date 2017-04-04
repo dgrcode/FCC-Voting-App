@@ -2,9 +2,8 @@ const express = require('express');
 const router = new express.Router();
 const cache = require('../cache/cache');
 
-router.post('/api/history', (req, res) => {
-  cache.put('prevHistory', req.body.prevHistory);
-  console.log('Recibe history: ' + req.body.prevHistory);
+router.post('/api/redirect', (req, res) => {
+  cache.put('redirect', req.body.redirect);
   res.end();
 });
 

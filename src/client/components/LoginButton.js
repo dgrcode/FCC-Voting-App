@@ -6,10 +6,10 @@ import React from 'react';
 class LoginButton extends React.Component {
   clickHandler = () => {
     $.ajax({
-      url: '/api/history',
+      url: '/api/redirect',
       type: 'POST',
       contentType: 'application/json',
-      data: JSON.stringify({ prevHistory: this.props.location.pathname })
+      data: JSON.stringify({ redirect: this.props.location.pathname })
     });
   };
 

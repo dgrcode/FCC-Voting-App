@@ -24,29 +24,12 @@ router.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '/../../../dist', 'index.html'));
 });
 
-router.get('/poll/:id', (req, res) => {
-  console.log('Entrando en poll con id:' + req.params.id);
-  const db = req.app.db;
-  getPollInfo(db, req.params.id)
-  .then((pollInfo) => {
-    res.render('poll', { poll: pollInfo });
-  })
-  .catch((err) => {
-    console.log('Error getting poll info');
-    console.log(err);
-  });
-});
+const clientRedirect = (req, res) => {
+  res.cookie('redirect', req.path);
+  res.redirect('/');
+};
 
-router.get('/new', (req, res) => {
-  console.log('New poll');
-  console.log({
-    user: req.user,
-    hasUsername: !!req.user && !!req.user.username
-  });
-  res.render('newpoll', {
-    user: req.user,
-    hasUsername: !!req.user && !!req.user.username
-  });
-});
+router.get('/poll/:id', clientRedirect);
+router.get('/new', clientRedirect);
 
 module.exports = router;

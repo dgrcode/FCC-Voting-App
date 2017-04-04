@@ -39,19 +39,19 @@ window.onload = () => {
     console.log('No encuentra el polls');
   }
 
-  let historyCookie = getCookie('history');
-  deleteCookie('history');
-  console.log('historyCookie');
-  console.log(historyCookie);
-  let prevHistory = false;
-  if (historyCookie) {
-    prevHistory = decodeURIComponent(historyCookie);
+  let redirectCookie = getCookie('redirect');
+  deleteCookie('redirect');
+  console.log('redirectCookie');
+  console.log(redirectCookie);
+  let redirect = false;
+  if (redirectCookie) {
+    redirect = decodeURIComponent(redirectCookie);
   }
 
   ReactDOM.render(
     <Provider store={store}>
     <Router history={history} onUpdate={() => window.scrollTo(0, 0)}>
-      <Layout location={location} history={history} prevHistory={prevHistory}/>
+      <Layout location={location} history={history} redirect={redirect}/>
     </Router>
     </Provider>
     , document.getElementById('main'));

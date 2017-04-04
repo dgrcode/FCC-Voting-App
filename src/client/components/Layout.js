@@ -10,8 +10,10 @@ import LoginModal from './LoginModal';
 
 class Layout extends React.Component {
   componentWillMount = () => {
-    if (this.props.prevHistory) {
-      this.props.history.push(this.props.prevHistory);
+    if (this.props.redirect) {
+      this.props.history.push(this.props.redirect);
+    } else {
+      this.props.history.push('/');
     }
   }
 
