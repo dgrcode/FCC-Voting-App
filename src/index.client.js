@@ -4,6 +4,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
+import { createPoll } from './client/actions/userActions';
+import { userLogin } from './client/actions/userActions';
 import { Router } from 'react-router';
 import createBrowserHistory from 'history/createBrowserHistory';
 import reducers from './client/reducers/reducers';
@@ -29,20 +31,28 @@ const parseObjectFromCookie = (cookie) => {
 };
 
 window.onload = () => {
+  // manage polls cookie
   let pollsCookie = getCookie('polls');
   deleteCookie('polls');
-
   if (pollsCookie) {
     const polls = parseObjectFromCookie(pollsCookie);
-    polls.map(poll => store.dispatch({ type: 'ADD_POLL', poll: poll }));
+    polls.map(poll => store.dispatch(createPoll(poll)));
   } else {
     console.log('No encuentra el polls');
   }
 
+  // manage user cookie
+  let userCookie = getCookie('user');
+  deleteCookie('user'); //TODO only for dev
+  if (userCookie) {
+    console.log('Encuentra un user');
+    const user = parseObjectFromCookie(userCookie);
+    store.dispatch(userLogin(user));
+  }
+
+  // manage redirect cookie
   let redirectCookie = getCookie('redirect');
   deleteCookie('redirect');
-  console.log('redirectCookie');
-  console.log(redirectCookie);
   let redirect = false;
   if (redirectCookie) {
     redirect = decodeURIComponent(redirectCookie);
