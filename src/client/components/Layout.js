@@ -13,6 +13,7 @@ class Layout extends React.Component {
     if (this.props.redirect) {
       this.props.history.push(this.props.redirect);
     } else {
+      // TODO check if this is needed after changing <a> with <Link>
       this.props.history.push('/');
     }
   }
