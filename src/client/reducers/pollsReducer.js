@@ -13,6 +13,9 @@ export default function pollsReducer (state = [], action) {
   case 'REMOVE_POLL':
     return state.filter((poll, idx) => idx !== action.pollIndex);
     break;
+  case 'COMM_POLLS':
+    return [...state, ...action.data];
+    break;
   default:
     return state;
   }
