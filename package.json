@@ -46,7 +46,8 @@
     "react-redux": "^5.0.3",
     "react-router": "^4.0.0",
     "react-router-dom": "^4.0.0",
-    "redux": "^3.6.0"
+    "redux": "^3.6.0",
+    "ws": "^2.2.3"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.1",
@@ -67,5 +68,8 @@
     "style-loader": "^0.16.0",
     "webpack": "^2.3.1",
     "webpack-dev-server": "^2.4.2"
+  },
+  "browser": {
+    "ws": "./ws-browser.js"
   }
 }

@@ -3,10 +3,12 @@ const session = require('express-session');
 const mongo = require('mongodb');
 const passport = require('passport');
 const path = require('path');
+const http = require('http');
+const WebSocket = require('ws');
+const socketHandler = require('./server/socket/handler.js');
 const bodyParser = require('body-parser');
 const routes = require('./server/routes');
 const login = require('./server/routes/login.js');
-const api = require('./server/routes/api.js');
 
 const app = express();
 app.use(session({
@@ -27,14 +29,24 @@ app.use('/public/fonts/',
 app.use(routes);
 app.use(login);
 app.use(bodyParser.json());
-app.use(api);
 app.set('view engine', 'pug');
+
+const server = http.createServer(app);
+const wss = new WebSocket.Server({
+  perMessageDeflate: false,
+  port: process.env.PORT_WS,
+  server
+});
+
+// Link the websockets server through the app
+app.wss = wss;
 
 const MongoClient = mongo.MongoClient;
 MongoClient.connect('mongodb://localhost:27017/votingapp')
 .then((db) => {
   // Link the database through the app. It will be available in the req object
   app.db = db;
+  socketHandler(app);
   console.log('App listening on port ' + process.env.PORT);
   app.listen(process.env.PORT);
 })

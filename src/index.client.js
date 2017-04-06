@@ -9,6 +9,7 @@ import { userLogin } from './client/actions/userActions';
 import { Router } from 'react-router';
 import createBrowserHistory from 'history/createBrowserHistory';
 import reducers from './client/reducers/reducers';
+import WebSocket from 'ws';
 import Layout from './client/components/Layout';
 import commonStyle_ from './public/styles/common.sass';
 
@@ -24,22 +25,23 @@ const getCookie = (name) => {
 const deleteCookie = (name) => {
   document.cookie = name + '=; max-age=0;';
 };
+const ws = new WebSocket('ws://localhost:8080');
 
 const parseObjectFromCookie = (cookie) => {
   const decodedCookie = decodeURIComponent(cookie);
   return JSON.parse(decodedCookie);
+ws.onopen = () => {
+  console.log('Connected to WS');
 };
 
 window.onload = () => {
-  // manage polls cookie
-  let pollsCookie = getCookie('polls');
-  deleteCookie('polls');
-  if (pollsCookie) {
-    const polls = parseObjectFromCookie(pollsCookie);
-    polls.map(poll => store.dispatch(createPoll(poll)));
-  } else {
-    console.log('No encuentra el polls');
+ws.onmessage = (mevent) => {
+  const message = mevent.data;
+  const messsageObject = JSON.parse(message);
+  if (messsageObject.isAction) {
+    store.dispatch(messsageObject);
   }
+};
 
   // manage user cookie
   let userCookie = getCookie('user');
@@ -61,7 +63,7 @@ window.onload = () => {
   ReactDOM.render(
     <Provider store={store}>
     <Router history={history} onUpdate={() => window.scrollTo(0, 0)}>
-      <Layout location={location} history={history} redirect={redirect}/>
+      <Layout location={location} history={history} redirect={redirect} ws={ws}/>
     </Router>
     </Provider>
     , document.getElementById('main'));
