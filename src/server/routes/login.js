@@ -3,6 +3,7 @@ const passport = require('passport');
 const router = new express.Router();
 const findUser = require('../controllers/findUser.server.js');
 const cache = require('../cache/cache');
+const userActions = require('../actions/userActions.js');
 
 // Get the database from the request with a middleware
 let db;
@@ -63,7 +64,6 @@ const userHandlerFunction = (accessToken, refreshToken, profile, done) => {
 const userRedirect = (req, res) => {
   // TODO here I should check if that's the first time and send the user to its
   // profile to fill everything
-  res.cookie('user', req.user);
   res.redirect(cache.get('redirect'));
 };
 
@@ -130,11 +130,25 @@ router.get('/auth/twitter/callback',
   userRedirect
 );
 
+router.get('/auth/whoami', (req, res) => {
+  if (req.user) {
+    const clientSafeUserData = {
+      name: req.user.name,
+      photo: req.user.photo,
+      username: req.user.username || false,
+      dbId: req.user.dbId
+    };
+    const userData = userActions.communicateUserData(clientSafeUserData);
+    res.json(userData);
+  }
+  res.end();
+});
+
 // Logout
-router.get('/logout', (req, res) => {
+router.post('/auth/logout', (req, res) => {
   console.log('Logging out');
-  req.session.destroy((err) => {
-    res.redirect('/');
+  req.session.destroy(() => {
+    res.end();
   });
 });
 

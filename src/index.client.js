@@ -1,11 +1,10 @@
 'use strict';
 
+/*global $*/
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import { createPoll } from './client/actions/userActions';
-import { userLogin } from './client/actions/userActions';
 import { Router } from 'react-router';
 import createBrowserHistory from 'history/createBrowserHistory';
 import reducers from './client/reducers/reducers';
@@ -34,7 +33,6 @@ ws.onopen = () => {
   console.log('Connected to WS');
 };
 
-window.onload = () => {
 ws.onmessage = (mevent) => {
   const message = mevent.data;
   const messsageObject = JSON.parse(message);
@@ -43,15 +41,15 @@ ws.onmessage = (mevent) => {
   }
 };
 
-  // manage user cookie
-  let userCookie = getCookie('user');
-  deleteCookie('user'); //TODO only for dev
-  if (userCookie) {
-    console.log('Encuentra un user');
-    const user = parseObjectFromCookie(userCookie);
-    store.dispatch(userLogin(user));
-  }
+$.get('/auth/whoami')
+.then((userData) => {
+  store.dispatch(userData);
+})
+.catch(() => {
+  console.log('User not logged in');
+});
 
+window.onload = () => {
   // manage redirect cookie
   let redirectCookie = getCookie('redirect');
   deleteCookie('redirect');
