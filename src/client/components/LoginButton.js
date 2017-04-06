@@ -1,16 +1,10 @@
 'use strict';
 
-/*global $*/
 import React from 'react';
 
 class LoginButton extends React.Component {
   clickHandler = () => {
-    $.ajax({
-      url: '/api/redirect',
-      type: 'POST',
-      contentType: 'application/json',
-      data: JSON.stringify({ redirect: this.props.location.pathname })
-    });
+    document.cookie = 'redirect=' + this.props.location.pathname;
   };
 
   render () {
