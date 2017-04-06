@@ -21,7 +21,7 @@ class Layout extends React.Component {
   render () {
     return (
       <div className="app-root">
-        <Navbar user={null}/>
+        <Navbar/>
         <Route exact path="/" component={IndexPage}/>
         <Route path="/poll/:pollid" component={PollPage}/>
         <Route path="/new" component={NewPollPage}/>

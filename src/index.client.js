@@ -5,30 +5,19 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
+import reducers from './client/reducers/reducers';
 import { Router } from 'react-router';
 import createBrowserHistory from 'history/createBrowserHistory';
-import reducers from './client/reducers/reducers';
 import WebSocket from 'ws';
 import Layout from './client/components/Layout';
 import commonStyle_ from './public/styles/common.sass';
+import { getCookie, deleteCookie } from './utils/cookies';
 
 const store = createStore(reducers);
 const history = createBrowserHistory();
 
-const getCookie = (name) => {
-  const value = "; " + document.cookie;
-  const parts = value.split("; " + name + "=");
-  if (parts.length === 2) return parts.pop().split(";").shift();
-};
-
-const deleteCookie = (name) => {
-  document.cookie = name + '=; max-age=0;';
-};
 const ws = new WebSocket('ws://localhost:8080');
 
-const parseObjectFromCookie = (cookie) => {
-  const decodedCookie = decodeURIComponent(cookie);
-  return JSON.parse(decodedCookie);
 ws.onopen = () => {
   console.log('Connected to WS');
 };

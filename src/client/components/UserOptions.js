@@ -18,12 +18,11 @@ export default class Navbar extends React.Component {
 
   render () {
     const user = this.props.user;
-    const userLink = this.props.username || '#';
-
     if (!user) {
       return <li><button className="btn" href="#" data-toggle="modal" data-target="#modal-login">Login</button></li>;
     }
 
+    const userLink = user.username || user.dbId;
     return (
       <div className="user-menu">
         <li><Link to="/new">

@@ -4,8 +4,6 @@ import React from 'react';
 
 export default class PollPage extends React.Component {
   render () {
-    console.log('Pinta el Poll');
-
     const match = this.props.match;
     const id = match.params.pollid;
 

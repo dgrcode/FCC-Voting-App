@@ -8,7 +8,7 @@ export default function pollsReducer (state = undefined, action) {
   case 'LOGOUT':
     return undefined;
     break;
-  case 'COMM_USER_INFO':
+  case 'COMM_USER_DATA':
     return action.data;
     break;
   default:
