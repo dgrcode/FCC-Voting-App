@@ -25,13 +25,15 @@ export default class Navbar extends React.Component {
     const userLink = user.username || user.dbId;
     return (
       <div className="user-menu">
-        <li><Link to="/new">
-          <span className="glyphicon glyphicon-plus" aria-hidden="true" role="button"/>
-        </Link></li>
-        <li><Link to="/userlink">{user.name}</Link></li>
-        <li onClick={this.logout}>
-          <span className="glyphicon glyphicon-off" aria-hidden="true" role="button"/>
-        </li>
+        <ul>
+          <li><Link className="nolink" to="/new">
+            <span className="glyphicon glyphicon-plus" aria-hidden="true" role="button"/>
+          </Link></li>
+          <li><Link className="nolink" to="/userlink">{user.name}</Link></li>
+          <li onClick={this.logout}>
+            <a className="nolink" href="#"><span className="glyphicon glyphicon-off" aria-hidden="true" role="button"/></a>
+          </li>
+        </ul>
       </div>
     );
   }

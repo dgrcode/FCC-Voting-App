@@ -26,6 +26,20 @@ module.exports = {
         express.static(path.join(__dirname, 'dist', 'styles')));
       app.use('/public/fonts/',
         express.static(path.join(__dirname, 'dist', 'fonts')));
+      app.get('/auth/whoami', (req, res) => {
+        const clientSafeUserData = {
+          name: 'Daniel',
+          photo: 'photoString',
+          username: 'dgrcode',
+          dbId: 'dbId'
+        };
+        const userData = {
+          type: 'COMM_USER_DATA',
+          data: clientSafeUserData,
+          isAction: true
+        };
+        res.json(userData);
+      });
     }
   },
   output: {
