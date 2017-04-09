@@ -7,3 +7,8 @@ export const createPoll = (poll) => {
     poll
   };
 };
+export const communicateNewPoll = (poll) => ({
+  type: 'COMM_NEW_POLL',
+  data: poll,
+  isAction: true
+});
