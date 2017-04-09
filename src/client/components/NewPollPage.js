@@ -40,6 +40,7 @@ export default class PollPage extends React.Component {
     };
     const newPollData = communicateNewPoll(newPoll);
     this.props.ws.send(JSON.stringify(newPollData));
+    this.props.history.push('/');
   }
 
   render () {
