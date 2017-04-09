@@ -45,5 +45,6 @@ module.exports = {
       $: 'jquery',
       jQuery: 'jquery'
     })
-  ]
+  ],
+  watch: true
 };
