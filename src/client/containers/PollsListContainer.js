@@ -6,7 +6,7 @@ import { createPoll } from '../actions/pollActions';
 
 const mapStateToProps = (state) => {
   return {
-    polls: state.polls
+    polls: state.polls.visible
   };
 };
 

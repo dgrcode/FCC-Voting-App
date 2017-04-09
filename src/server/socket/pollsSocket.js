@@ -13,5 +13,15 @@ module.exports = {
     .catch((err) => {
       console.log(err);
     });
+  },
+
+  sendNewPollHold: (ws, poll) => {
+    const pollData = pollsActions.communicateNewPollHold(poll);
+    ws.send(JSON.stringify(pollData));
+  },
+
+  sendNewPoll: (ws, poll) => {
+    const pollData = pollsActions.communicateNewPoll(poll);
+    ws.send(JSON.stringify(pollData));
   }
 };
