@@ -1,0 +1,9 @@
+Poll:{
+  "id": "string",
+  "name": "string",
+  "choices": [
+    {"choice": "string", "votes": "number"}
+  ],
+  "dateCreated": "date",
+  "owner": "string"
+}

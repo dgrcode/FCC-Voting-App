@@ -1,7 +1,8 @@
 User:{
+  "id": "string",
   "name": "string",
   "username": "string",
-  "ids": [
+  "provIds": [
     {"provider": "string", "id": "string"}
   ],
   "emails": ["string"],
