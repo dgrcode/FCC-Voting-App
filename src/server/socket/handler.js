@@ -1,4 +1,3 @@
-const wsUserManager = require('./wsUserManager.js');
 const pollsSocket = require('./pollsSocket.js');
 
 module.exports = (app) => {
@@ -15,10 +14,8 @@ module.exports = (app) => {
   wss.on('connection', (ws) => {
     console.log('New connection');
 
-    const userId = wsUserManager.saveUser(ws);
     pollsSocket.sendPolls(ws, db);
 
-    pollsSocket.sendPolls(userId, db);
     ws.on('message', (m) => {
       m = JSON.parse(m);
       switch (m.type) {

@@ -9,12 +9,10 @@ class PollsList extends React.Component {
 
     return (
       <div>
-      <input id="inputtext" type="text"/>
-      <button onClick={this.props.onClick}>add</button>
       <ul>
       {
         polls.map((poll, id) => (
-          <li key={id}><Link to={`/poll/${poll.id}`}>
+          <li key={id}><Link to={`/poll/${poll._id}`}>
             {poll.name} <span>{poll.dateCreated}</span>
           </Link></li>
         ))

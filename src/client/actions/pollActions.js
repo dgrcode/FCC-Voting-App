@@ -1,12 +1,10 @@
 'use strict';
 
-export const createPoll = (poll) => {
-  console.log('llama a la acción');
-  return {
-    type: 'ADD_POLL',
-    poll
-  };
-};
+export const createPoll = (poll) => ({
+  type: 'ADD_POLL',
+  poll
+});
+
 export const communicateNewPoll = (poll) => ({
   type: 'COMM_NEW_POLL',
   data: poll,
