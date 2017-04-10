@@ -2,6 +2,7 @@ const express = require('express');
 const passport = require('passport');
 const router = new express.Router();
 const findUser = require('../controllers/findUser.server.js');
+const saveUser = require('../controllers/saveUser.server.js');
 const userActions = require('../actions/userActions.js');
 
 // Get the database from the request with a middleware
@@ -41,16 +42,25 @@ const userHandlerFunction = (accessToken, refreshToken, profile, done) => {
       user = {
         name: profile.displayName,
         username: '',
-        ids: [
+        provIds: [
           { provider: profile.provider, id: profile.id }
         ],
-        emails: profile.emails,
+        emails: [profile.emails[0].value],
         gender: profile.gender,
         photo: profile.photos[0].value
       };
-      console.log(user);
-      done(null, user);
+      saveUser(db, user)
+      .then((user) => {
+        console.log('Saved new user');
+        console.log(user);
+        done(null, user);
+      })
+      .catch((err) => {
+        done(err, null);
+      });
     } else {
+      // user existed already.
+      // TODO Check if the provider is new to add new info
       done(null, user);
     }
   })
@@ -135,7 +145,7 @@ router.get('/auth/whoami', (req, res) => {
       name: req.user.name,
       photo: req.user.photo,
       username: req.user.username || false,
-      dbId: req.user.dbId
+      _id: req.user._id
     };
     const userData = userActions.communicateUserData(clientSafeUserData);
     res.json(userData);

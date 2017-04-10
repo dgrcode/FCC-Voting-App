@@ -1,9 +1,10 @@
 const findUser = (db, userInfo) => new Promise((resolve, reject) => {
   const listOfMails = userInfo.emails.map((val) => val.value);
+  console.log(listOfMails);
   const providerIdObject = {};
   providerIdObject['ids.' + userInfo.provider] = userInfo.id;
   db.collection('users').find({ $or: [
-    { email: { $in: listOfMails } },
+    { emails: { $in: listOfMails } },
     providerIdObject
   ] }).toArray()
   .then((docs) => {
