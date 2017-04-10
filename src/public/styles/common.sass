@@ -8,9 +8,9 @@
 .navbar
   height: $navbarHeight
   background-color: $primaryColorLight
-  color: white
-  border-radius: 0
-  border-width: 0
+  color: $textColorSecondaryLight
+  border-radius: 0 !important
+  border: 0 !important
 
   .container
     display: flex
@@ -41,6 +41,7 @@
 
   .nav-brand
     font-size: 200%
+    color: white
     &:hover
       text-decoration: none
 
@@ -63,28 +64,46 @@
     height: 100%
     width: 100%
 
-    ul
+    & > ul
       height: $navbarHeight
       list-style: none
       display: flex
+      align-items: center
       margin: 0 10px 0 0
       padding: 0
 
-    li
-      position: relative
-      margin: 0
-      padding: 0
+      li
+        position: relative
+        margin: 0
+        padding: 0
 
-    a
-      height: $navbarHeight
-      line-height: $navbarHeight
-      display: block
-      margin: 0
-      padding: 0 10px
-      transition: background-color cubic-bezier(.165, .84, .44, 1) .25s, color cubic-bezier(.165, .84, .44, 1) .25s
+      a
+        height: $navbarHeight
+        line-height: $navbarHeight
+        display: block
+        margin: 0
+        padding: 0 10px
+        transition: background-color cubic-bezier(.165, .84, .44, 1) .25s, color cubic-bezier(.165, .84, .44, 1) .25s
 
-      &:hover
-        background-color: $primaryColor
+        img
+          height: 80%
+          width: auto
+          border-radius: 100%
+
+        &:hover
+          background-color: $primaryColor
+          color: $textColorPrimaryLight !important
+
+      .dropdown-menu
+        background-color: $primaryColorLight
+        padding: 0
+
+        .divider
+          background-color: $textColorDisabledLight
+
+        a
+          color: $textColorSecondaryLight
+
 
 .modal
   text-align: center

@@ -29,7 +29,7 @@ module.exports = {
       app.get('/auth/whoami', (req, res) => {
         const clientSafeUserData = {
           name: 'Daniel',
-          photo: 'photoString',
+          photo: 'https://lh6.googleusercontent.com/-2KljTDECoOs/AAAAAAAAAAI/AAAAAAAAAl4/Qyb9zNXWFyg/photo.jpg?sz=50',
           username: 'dgrcode',
           dbId: 'dbId'
         };
