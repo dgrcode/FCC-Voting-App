@@ -2,9 +2,9 @@
 
 /* global $ */
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
-export default class Navbar extends React.Component {
+class UserOptions extends React.Component {
   logout = () => {
     this.props.logout();
     $.ajax({
@@ -14,6 +14,9 @@ export default class Navbar extends React.Component {
     .catch(() => {
       console.log('Error logging out');
     });
+    // TODO actually it should push to '/' only if the location is forbidden for
+    // unauthenticated users. In other case, the user could stay there.
+    this.props.history.push('/');
   }
 
   render () {
@@ -22,7 +25,8 @@ export default class Navbar extends React.Component {
       return <li><button className="btn" href="#" data-toggle="modal" data-target="#modal-login">Login</button></li>;
     }
 
-    const userLink = user.username || user.dbId;
+    const userLink = user.username || user._id;
+    console.log(user._id);
     return (
       <div className="user-menu">
         <ul>
@@ -36,6 +40,7 @@ export default class Navbar extends React.Component {
             <ul className="dropdown-menu">
               <li><Link to="/new">New poll</Link></li>
               <li><Link to={`/${userLink}/polls`}>My polls</Link></li>
+              <li><Link to={`/${userLink}/profile`}>Edit profile</Link></li>
               <li role="separator" className="divider"/>
               <li onClick={this.logout}>
                 <a className="nolink" href="#">
@@ -49,3 +54,7 @@ export default class Navbar extends React.Component {
     );
   }
 }
+
+const UserOptionsRouterProps = withRouter(UserOptions);
+
+export default UserOptionsRouterProps;

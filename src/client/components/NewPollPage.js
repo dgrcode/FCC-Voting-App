@@ -36,7 +36,7 @@ export default class PollPage extends React.Component {
       name: this.state.name,
       choices: this.state.choices.map(val => ({ choice: val, votes: 0 })),
       dateCreated: new Date(),
-      //owner: this.props.user.dbId
+      owner: this.props.user._id
     };
     const newPollData = communicateNewPoll(newPoll);
     this.props.ws.send(JSON.stringify(newPollData));

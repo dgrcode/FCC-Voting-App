@@ -6,6 +6,7 @@ import Navbar from './Navbar';
 import IndexPage from './IndexPage';
 import PollPage from './PollPage';
 import NewPollPageContainer from '../containers/NewPollPageContainer';
+import UserPollsPageContainer from '../containers/UserPollsPageContainer';
 import LoginModal from './LoginModal';
 
 class Layout extends React.Component {
@@ -26,6 +27,7 @@ class Layout extends React.Component {
         <Route exact path="/" component={IndexPage}/>
         <Route path="/poll/:pollid" component={PollPage}/>
         <Route path="/new" render={(props) => <NewPollPageContainer ws={ws} {...props}/>}/>
+        <Route path="/:id/polls" component={UserPollsPageContainer}/>
         <LoginModal location={this.props.location}/>
       </div>
     );
