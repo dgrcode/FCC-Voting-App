@@ -3,7 +3,7 @@
 import React from 'react';
 import { Route } from 'react-router';
 import Navbar from './Navbar';
-import IndexPage from './IndexPage';
+import HomePage from './HomePage';
 import PollPage from './PollPage';
 import NewPollPageContainer from '../containers/NewPollPageContainer';
 import UserPollsPageContainer from '../containers/UserPollsPageContainer';
@@ -24,7 +24,7 @@ class Layout extends React.Component {
     return (
       <div className="app-root">
         <Navbar/>
-        <Route exact path="/" component={IndexPage}/>
+        <Route exact path="/" component={HomePage}/>
         <Route path="/poll/:pollid" component={PollPage}/>
         <Route path="/new" render={(props) => <NewPollPageContainer ws={ws} {...props}/>}/>
         <Route path="/:id/polls" component={UserPollsPageContainer}/>

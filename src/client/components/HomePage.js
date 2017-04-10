@@ -6,7 +6,7 @@ import PollsOnHoldContainer from '../containers/PollsOnHoldContainer';
 //import NotFoundPage from './NotFoundPage';
 
 
-class IndexPage extends React.Component {
+class HomePage extends React.Component {
   render () {
     return (
       <div className="app-root">
@@ -18,4 +18,4 @@ class IndexPage extends React.Component {
   }
 }
 
-export default IndexPage;
+export default HomePage;
