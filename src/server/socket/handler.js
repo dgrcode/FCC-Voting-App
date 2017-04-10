@@ -30,6 +30,8 @@ module.exports = (app) => {
         });
         break;
 
+      // TODO handle the case 'GET_POLL', that is a user requesting a poll info
+
       default:
         // do nothing
         console.log('Recibe algo desconocido');

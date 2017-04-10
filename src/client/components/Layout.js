@@ -4,7 +4,7 @@ import React from 'react';
 import { Route } from 'react-router';
 import Navbar from './Navbar';
 import HomePage from './HomePage';
-import PollPage from './PollPage';
+import PollPageContainer from '../containers/PollPageContainer';
 import NewPollPageContainer from '../containers/NewPollPageContainer';
 import UserPollsPageContainer from '../containers/UserPollsPageContainer';
 import LoginModal from './LoginModal';
@@ -25,7 +25,7 @@ class Layout extends React.Component {
       <div className="app-root">
         <Navbar/>
         <Route exact path="/" component={HomePage}/>
-        <Route path="/poll/:pollid" component={PollPage}/>
+        <Route path="/poll/:pollId" render={(props) => <PollPageContainer ws={ws} {...props}/>}/>
         <Route path="/new" render={(props) => <NewPollPageContainer ws={ws} {...props}/>}/>
         <Route path="/:id/polls" component={UserPollsPageContainer}/>
         <LoginModal location={this.props.location}/>
