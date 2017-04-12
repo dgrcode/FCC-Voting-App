@@ -1,4 +1,5 @@
 const pollsSocket = require('./pollsSocket.js');
+const saveNewPoll = require('../controllers/saveNewPoll.server.js');
 
 module.exports = (app) => {
   const wss = app.wss;
@@ -20,10 +21,10 @@ module.exports = (app) => {
       m = JSON.parse(m);
       switch (m.type) {
       case 'COMM_NEW_POLL':
-        console.log('recive un nuevo poll');
+        console.log('Recibe un nuevo poll');
         console.log(m.data);
         const newPoll = m.data;
-        db.collection('polls').insertOne(newPoll)
+        saveNewPoll(db, newPoll)
         .then(() => {
           broadcastWithoutOriginator(pollsSocket.sendNewPollHold, ws, newPoll);
           pollsSocket.sendNewPoll(ws, newPoll);
