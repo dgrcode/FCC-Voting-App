@@ -6,7 +6,7 @@ import PollListItem from './PollListItem';
 class PollsList extends React.Component {
   render () {
     const filterId = this.props.filterByUserId;
-    const uId = this.props.user ? this.props.user._id : null;
+    const user = this.props.user
     let polls = this.props.polls;
     if (filterId) {
       polls = polls.filter(poll => poll.owner === filterId);
@@ -17,7 +17,7 @@ class PollsList extends React.Component {
       <ul>
       {
         polls.map((poll, id) => (
-          <li key={id}><PollListItem poll={poll} uId={uId}/></li>
+          <li key={id}><PollListItem poll={poll} user={user}/></li>
         ))
       }
       </ul>

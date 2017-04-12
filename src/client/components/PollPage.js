@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { getPoll } from '../actions/connectionActions';
+import EditButton from './EditButton';
 
 export default class PollPage extends React.Component {
   render () {
@@ -36,18 +37,11 @@ export default class PollPage extends React.Component {
       </div>
     );
 
-    const EditButton = () => {
-      if (user && poll.owner === user._id) {
-        return <button className="btn btn-default">Edit</button>;
-      }
-      return null;
-    };
-
     return (
       <div className="app-content">
         <h2>{poll.name}</h2>
         <button className="btn btn-default">Share</button>
-        <EditButton/>
+        <EditButton user={user} poll={poll}/>
         <div className="choices">
         {
           poll.choices.map((choice, id) => <Choice key={id} choice={choice.choice}/>)

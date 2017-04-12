@@ -2,25 +2,19 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
+import EditButton from './EditButton';
 
 class PollsListItem extends React.Component {
   render () {
     const poll = this.props.poll;
-    const uId = this.props.uId;
-
-    const EditButton = () => {
-      if (poll.owner === uId) {
-        return <button className="btn btn-default">Edit</button>;
-      }
-      return null;
-    };
+    const user = this.props.user;
 
     return (
       <div className="poll-list-item">
       <Link to={`/poll/${poll._id}`}>
         {poll.name} <span>{poll.dateCreated}</span>
       </Link>
-      <EditButton/>
+      <EditButton poll={poll} user={user}/>
       </div>
     );
   }
