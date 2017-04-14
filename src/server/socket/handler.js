@@ -1,5 +1,6 @@
 const pollsSocket = require('./pollsSocket.js');
 const saveNewPoll = require('../controllers/saveNewPoll.server.js');
+const updatePoll = require('../controllers/updatePoll.server.js');
 
 module.exports = (app) => {
   const wss = app.wss;
@@ -28,6 +29,15 @@ module.exports = (app) => {
         .then(() => {
           broadcastWithoutOriginator(pollsSocket.sendNewPollHold, ws, newPoll);
           pollsSocket.sendNewPoll(ws, newPoll);
+
+      case 'COMM_UPDATED_POLL':
+        console.log('Recibe cambios en el poll "' + m.data.name + '"');
+        console.log(JSON.stringify(m.data), 2);
+        const updatedPoll = m.data;
+        updatePoll(db, updatedPoll)
+        .then((updatedPollDb) => {
+          broadcastWithoutOriginator(pollsSocket.sendUpdatedPollHold, ws, updatedPollDb);
+          pollsSocket.sendUpdatedPoll(ws, updatedPollDb);
         });
         break;
 

@@ -21,5 +21,15 @@ module.exports = {
   sendNewPoll: (ws, poll) => {
     const pollData = pollsActions.communicateNewPoll(poll);
     ws.send(JSON.stringify(pollData));
-  }
+  },
+
+  sendUpdatedPollHold: (ws, poll) => {
+    const pollData = pollsActions.communicateUpdatedPollHold(poll);
+    ws.send(JSON.stringify(pollData));
+  },
+
+  sendUpdatedPoll: (ws, poll) => {
+    const pollData = pollsActions.communicateUpdatedPoll(poll);
+    ws.send(JSON.stringify(pollData));
+  },
 };

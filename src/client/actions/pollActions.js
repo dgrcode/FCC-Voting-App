@@ -11,6 +11,12 @@ export const communicateNewPoll = (poll) => ({
   isAction: true
 });
 
+export const communicateUpdatedPoll = (poll) => ({
+  type: 'COMM_UPDATED_POLL',
+  data: poll,
+  isAction: true
+});
+
 export const showOnHoldPolls = () => ({
   type: 'SHOW_ON_HOLD_POLLS'
 });

@@ -15,5 +15,17 @@ module.exports = {
     type: 'COMM_NEW_POLL',
     data: pollObj,
     isAction: true
+  }),
+
+  communicateUpdatedPollHold: (pollObj) => ({
+    type: 'COMM_UPDATED_POLL_HOLD',
+    data: pollObj,
+    isAction: true
+  }),
+
+  communicateUpdatedPoll: (pollObj) => ({
+    type: 'COMM_UPDATED_POLL',
+    data: pollObj,
+    isAction: true
   })
 };

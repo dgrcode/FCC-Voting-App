@@ -46,6 +46,20 @@ export default function pollsReducer (state = defaultPollState, action) {
     };
     break;
 
+  case 'COMM_UPDATED_POLL':
+    return {
+      visible: state.visible.map(poll => poll._id === action.data._id ? action.data : poll),
+      hold: state.hold
+    };
+    break;
+
+  case 'COMM_UPDATED_POLL_HOLD':
+    return {
+      visible: state.visible.filter(poll => poll._id !== action.data._id),
+      hold: [...state.hold.filter(poll => poll._id !== action.data._id), action.data]
+    };
+    break;
+
   default:
     return state;
   }
