@@ -26,9 +26,11 @@ module.exports = (app) => {
         console.log(m.data);
         const newPoll = m.data;
         saveNewPoll(db, newPoll)
-        .then(() => {
-          broadcastWithoutOriginator(pollsSocket.sendNewPollHold, ws, newPoll);
-          pollsSocket.sendNewPoll(ws, newPoll);
+        .then((insertedPoll) => {
+          broadcastWithoutOriginator(pollsSocket.sendNewPollHold, ws, insertedPoll);
+          pollsSocket.sendNewPoll(ws, insertedPoll);
+        });
+        break;
 
       case 'COMM_UPDATED_POLL':
         console.log('Recibe cambios en el poll "' + m.data.name + '"');
