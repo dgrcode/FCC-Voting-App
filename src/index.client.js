@@ -27,6 +27,8 @@ ws.onmessage = (mevent) => {
   const messsageObject = JSON.parse(message);
   if (messsageObject.isAction) {
     store.dispatch(messsageObject);
+  } else {
+    console.log(messsageObject);
   }
 };
 
