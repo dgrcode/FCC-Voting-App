@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-class PollsList extends React.Component {
+export default class pollsOnHold extends React.Component {
   handleClick = () => {
     console.log('intenta ver los polls on hold');
     this.props.onClick();
@@ -23,5 +23,3 @@ class PollsList extends React.Component {
     );
   }
 }
-
-export default PollsList;

@@ -4,7 +4,7 @@ import React from 'react';
 import PollsListContainer from '../containers/PollsListContainer';
 
 
-class UserPollsPage extends React.Component {
+export default class UserPollsPage extends React.Component {
   render () {
     return (
       <div className="app-root">
@@ -15,5 +15,3 @@ class UserPollsPage extends React.Component {
     );
   }
 }
-
-export default UserPollsPage;

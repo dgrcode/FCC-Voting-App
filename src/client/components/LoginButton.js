@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-class LoginButton extends React.Component {
+export default class LoginButton extends React.Component {
   clickHandler = () => {
     document.cookie = 'redirect=' + this.props.location.pathname;
   };
@@ -19,5 +19,3 @@ class LoginButton extends React.Component {
     );
   }
 }
-
-export default LoginButton;

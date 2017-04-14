@@ -4,7 +4,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import EditButton from './EditButton';
 
-class PollsListItem extends React.Component {
+export default class PollsListItem extends React.Component {
   render () {
     const poll = this.props.poll;
     const user = this.props.user;
@@ -19,5 +19,3 @@ class PollsListItem extends React.Component {
     );
   }
 }
-
-export default PollsListItem;

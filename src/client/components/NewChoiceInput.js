@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-export default class PollPage extends React.Component {
+export default class NewChoiceInput extends React.Component {
   handleChange = (e) => {
     const idx = this.props.idx;
     const val = e.target.value;

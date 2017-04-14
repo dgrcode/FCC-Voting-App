@@ -3,7 +3,7 @@
 import React from 'react';
 import LoginButton from './LoginButton';
 
-class LoginModal extends React.Component {
+export default class LoginModal extends React.Component {
   render () {
     return (
       <div className="modal fade" id="modal-login" role="dialog">
@@ -33,5 +33,3 @@ class LoginModal extends React.Component {
     );
   }
 }
-
-export default LoginModal;

@@ -4,7 +4,7 @@ import React from 'react';
 import NewChoiceInput from './NewChoiceInput';
 import { communicateNewPoll } from '../actions/pollActions';
 
-export default class PollPage extends React.Component {
+export default class NewPollPage extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
