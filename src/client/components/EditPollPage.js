@@ -23,7 +23,8 @@ export default class EditPollPage extends React.Component {
     super(props);
     this.state = {
       name: '',
-      choices: ['']
+      choices: [''],
+      fetching: true
     };
   }
 
@@ -34,8 +35,24 @@ export default class EditPollPage extends React.Component {
     const poll = polls.reduce((accum, poll) => poll._id === pollId ? poll : accum, null);
     if (poll) {
       //const choiceNames = poll.choices.map(choice => choice.choice);
-      this.setState({ name: poll.name, choices: poll.choices });
+      this.setState({ name: poll.name, choices: poll.choices, fetching: false });
       this.originalPoll = poll;
+    } else {
+      // TODO test this connection message
+      const ws = this.props.ws;
+      ws.onopen = () => {
+        const message = getPoll();
+        ws.send(JSON.stringify(message));
+      };
+      ws.onmessage = (mEvent) => {
+        const message = JSON.parse(mEvent.data);
+        if (message.isAction) {
+          this.props.dispatch(message);
+          // here it should update the polls in redux, and re-render this
+          // component. At the second time, it should find the poll in the
+          // redux store.
+        }
+      };
     }
   }
 
@@ -75,30 +92,11 @@ export default class EditPollPage extends React.Component {
   }
 
   render () {
-    const polls = this.props.polls;
-    const match = this.props.match;
-    const history = this.props.history;
-    const pollId = match.params.pollId;
-    const poll = polls.reduce((accum, poll) => poll._id === pollId ? poll : accum, null);
-    if (!poll) {
-      // TODO test this connection message
-      const ws = this.props.ws;
-      ws.onopen = () => {
-        const message = getPoll();
-        ws.send(JSON.stringify(message));
-      };
-      ws.onmessage = (mEvent) => {
-        const message = JSON.parse(mEvent.data);
-        if (message.isAction) {
-          this.props.dispatch(message);
-          // here it should update the polls in redux, and re-render this
-          // component. At the second time, it should find the poll in the
-          // redux store.
-        }
-      };
+    if (this.state.fetching) {
       return (<h2>Connecting...</h2>);
     }
 
+    const poll = this.originalPoll;
     const user = this.props.user;
 
     if (poll.owner !== user._id) {

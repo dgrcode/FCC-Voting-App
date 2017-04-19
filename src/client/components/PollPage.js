@@ -14,7 +14,7 @@ export default class PollPage extends React.Component {
       // TODO test this connection message
       const ws = this.props.ws;
       ws.onopen = () => {
-        const message = getPoll();
+        const message = getPoll(pollId);
         ws.send(JSON.stringify(message));
       };
       ws.onmessage = (mEvent) => {
@@ -33,7 +33,7 @@ export default class PollPage extends React.Component {
 
     const Choice = (props) => (
       <div className="choice">
-        <label>{props.choice}<input type="checkbox"/></label>
+        <label>{props.choice}<input type="radio" name="choices"/></label>
       </div>
     );
 
