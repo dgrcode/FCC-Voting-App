@@ -4,7 +4,7 @@ import React from 'react';
 import NewChoiceInput from './NewChoiceInput';
 import PropTypes from 'prop-types';
 import { getPoll } from '../actions/connectionActions';
-import { communicateUpdatedPoll } from '../actions/pollActions';
+import { communicateUpdatedPoll, communicateDeletePoll } from '../actions/pollActions';
 
 export default class EditPollPage extends React.Component {
   static propTypes = {
@@ -91,6 +91,12 @@ export default class EditPollPage extends React.Component {
     this.props.history.push('/');
   }
 
+  deletePoll = () => {
+    const deletePollData = communicateDeletePoll(this.originalPoll._id);
+    this.props.ws.send(JSON.stringify(deletePollData));
+    this.props.history.push('/');
+  }
+
   render () {
     if (this.state.fetching) {
       return (<h2>Connecting...</h2>);
@@ -125,6 +131,7 @@ export default class EditPollPage extends React.Component {
         <br/>
         <button className="btn btn-info" onClick={this.saveChanges}>Save</button>
         <button className="btn btn-default" onClick={history.goBack}>Cancel</button>
+        <button className="btn btn-danger" onClick={this.deletePoll}>Delete</button>
         <br/>
         <textarea value={JSON.stringify(this.state, 4)}/>
       </div>

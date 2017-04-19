@@ -17,6 +17,12 @@ export const communicateUpdatedPoll = (poll) => ({
   isAction: true
 });
 
+export const communicateDeletePoll = (pollId) => ({
+  type: 'COMM_DELETE_POLL',
+  data: pollId,
+  isAction: true
+});
+
 export const showOnHoldPolls = () => ({
   type: 'SHOW_ON_HOLD_POLLS'
 });

@@ -32,4 +32,10 @@ module.exports = {
     const pollData = pollsActions.communicateUpdatedPoll(poll);
     ws.send(JSON.stringify(pollData));
   },
+
+  sendDeletePoll: (ws, pollId) => {
+    const deleteData = pollsActions.communicateDeletePoll(pollId);
+    console.log(deleteData);
+    ws.send(JSON.stringify(deleteData));
+  }
 };

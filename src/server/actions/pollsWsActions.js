@@ -27,5 +27,11 @@ module.exports = {
     type: 'COMM_UPDATED_POLL',
     data: pollObj,
     isAction: true
+  }),
+
+  communicateDeletePoll: (pollId) => ({
+    type: 'COMM_DELETE_POLL',
+    data: pollId,
+    isAction: true
   })
 };

@@ -60,6 +60,13 @@ export default function pollsReducer (state = defaultPollState, action) {
     };
     break;
 
+  case 'COMM_DELETE_POLL':
+    return {
+      visible: state.visible.filter(poll => poll._id !== action.data),
+      hold: state.hold.filter(poll => poll._id !== action.data)
+    };
+    break;
+
   default:
     return state;
   }
