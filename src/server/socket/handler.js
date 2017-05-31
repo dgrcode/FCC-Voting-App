@@ -2,6 +2,8 @@ const pollsSocket = require('./pollsSocket.js');
 const saveNewPoll = require('../controllers/saveNewPoll.server.js');
 const updatePoll = require('../controllers/updatePoll.server.js');
 const deletePoll = require('../controllers/deletePoll.server.js');
+const getPollInfo = require('../controllers/getPollInfo.server.js');
+const pollsWsActions = require('../actions/pollsWsActions.js');
 
 module.exports = (app) => {
   const wss = app.wss;
@@ -52,6 +54,17 @@ module.exports = (app) => {
         deletePoll(db, pollId)
         .then(() => {
           broadcastAll(pollsSocket.sendDeletePoll, pollId);
+        })
+        .catch(err => console.log(err));
+        break;
+
+      case 'COMM_GET_POLL':
+        console.log('Request to get the poll with id', m.pollId);
+        getPollInfo(db, m.pollId)
+        .then(poll => {
+          console.log('Get the poll with id', m.pollId);
+          const pollAction = pollsWsActions.communicateNewPoll(poll);
+          ws.send(JSON.stringify(pollAction));
         })
         .catch(err => console.log(err));
         break;

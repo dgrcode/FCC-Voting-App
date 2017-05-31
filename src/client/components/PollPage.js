@@ -24,49 +24,56 @@ export default class PollPage extends React.Component {
   }
 
   componentWillMount = () => {
-    console.log('MONTA');
-    const polls = this.props.polls;
-    const match = this.props.match;
-    const pollId = match.params.pollId;
-    const poll = polls.reduce((accum, poll) => poll._id === pollId ? poll : accum, null);
+    const poll = this.filterPolls(this.props.polls);
     if (poll) {
-      //const choiceNames = poll.choices.map(choice => choice.choice);
       this.setState({ fetching: false });
       this.originalPoll = poll;
     } else {
-      // TODO test this connection message
       const ws = this.props.ws;
-      ws.onopen = () => {
-        const message = getPoll(pollId);
-        ws.send(JSON.stringify(message));
-      };
-      ws.onmessage = (mEvent) => {
-        const message = JSON.parse(mEvent.data);
-        if (message.isAction) {
-          this.props.dispatch(message);
-          // here it should update the polls in redux, and re-render this
-          // component. At the second time, it should find the poll in the
-          // redux store.
+      const pollId = this.props.match.params.pollId;
+      const message = getPoll(pollId);
+      new Promise((resolve) => {
+        const checkConnection = () => {
+          setTimeout(() => {
+            if (ws.readyState !== 1) {
+              console.log('not connected yet');
+              checkConnection();
+            } else {
+              resolve();
+            }
+          }, 500);
+        };
+        if (ws.readyState === 1) {
+          resolve();
         } else {
-          console.log(message);
+          checkConnection();
         }
-      };
+      })
+      .then(() => {
+        ws.send(JSON.stringify(message));
+      });
     }
   }
 
   componentWillReceiveProps = (nextProps) => {
-    console.log('RECEIVE PROPS');
-    const polls = nextProps.polls;
-    const match = nextProps.match;
-    const pollId = match.params.pollId;
-    const poll = polls.reduce((accum, poll) => poll._id === pollId ? poll : accum, null);
-    console.log(poll !== this.originalPoll);
+    const poll = this.filterPolls(nextProps.polls);
     if (!poll) {
       this.setState({ deleted: true });
+    } else if (this.originalPoll === undefined) {
+      this.setState({ fetching: false });
+      this.originalPoll = poll;
     } else if (poll !== this.originalPoll) {
       this.modifiedPoll = poll;
-      this.setState({ modified: true });
+      this.setState({ fetching: false, modified: true });
     }
+  }
+
+  filterPolls = (polls) => {
+    const match = this.props.match;
+    const pollId = match.params.pollId;
+    let poll = polls.filter(poll => poll._id === pollId);
+    poll = poll.length ? poll[0] : false;
+    return poll;
   }
 
   updateView = () => {

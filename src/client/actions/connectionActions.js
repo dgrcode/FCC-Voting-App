@@ -1,7 +1,7 @@
 'use strict';
 
 export const getPoll = (pollId) => ({
-  type: 'GET_POLL',
+  type: 'COMM_GET_POLL',
   pollId,
   isAction: true
 });
