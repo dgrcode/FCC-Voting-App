@@ -3,7 +3,7 @@ const mongo = require('mongodb');
 const getPollInfo = (db, id) => new Promise((resolve, reject) => {
   db.collection('polls').find(
     {
-      _id: new mongo.ObjectId('58bc3bd9d4351030bd9ac51e')
+      _id: new mongo.ObjectId(id)
     },
     {
       _id: 0,
@@ -13,7 +13,6 @@ const getPollInfo = (db, id) => new Promise((resolve, reject) => {
     }
   ).toArray()
   .then((docs) => {
-    console.log('finds something and sends it back with the promise');
     resolve(docs[0]);
   })
   .catch((err) => {

@@ -24,6 +24,7 @@ ws.onopen = () => {
 
 ws.onmessage = (mevent) => {
   const message = mevent.data;
+  // TODO handle possible problem with the messages
   const messsageObject = JSON.parse(message);
   if (messsageObject.isAction) {
     store.dispatch(messsageObject);
