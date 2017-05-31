@@ -4,6 +4,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { getPoll } from '../actions/connectionActions';
 import EditButton from './EditButton';
+import Chart from './Chart';
 
 export default class PollPage extends React.Component {
   static propTypes = {
@@ -122,9 +123,7 @@ export default class PollPage extends React.Component {
           poll.choices.map((choice, id) => <Choice key={id} choice={choice.choice}/>)
         }
         </div>
-        <div className="chart">
-        Chart will come here
-        </div>
+        <Chart poll={poll}/>
         <textarea value={JSON.stringify(this.state)}/>
       </div>
     );
