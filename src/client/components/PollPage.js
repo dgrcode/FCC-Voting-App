@@ -20,15 +20,19 @@ export default class PollPage extends React.Component {
     this.state = {
       fetching: true,
       deleted: false,
-      modified: false
+      modified: false,
+      poll: false,
+      chosen: -1
     };
   }
 
   componentWillMount = () => {
     const poll = this.filterPolls(this.props.polls);
     if (poll) {
-      this.setState({ fetching: false });
-      this.originalPoll = poll;
+      this.setState({
+        fetching: false,
+        poll
+      });
     } else {
       const ws = this.props.ws;
       const pollId = this.props.match.params.pollId;
@@ -57,15 +61,38 @@ export default class PollPage extends React.Component {
   }
 
   componentWillReceiveProps = (nextProps) => {
-    const poll = this.filterPolls(nextProps.polls);
-    if (!poll) {
+    const nextPoll = this.filterPolls(nextProps.polls);
+    const prevPoll = this.state.poll;
+
+    if (!nextPoll) {
       this.setState({ deleted: true });
-    } else if (this.originalPoll === undefined) {
-      this.setState({ fetching: false });
-      this.originalPoll = poll;
-    } else if (poll !== this.originalPoll) {
-      this.modifiedPoll = poll;
-      this.setState({ fetching: false, modified: true });
+    } else if (!prevPoll) {
+      this.setState({ fetching: false, poll: nextPoll });
+    } else if (nextPoll !== prevPoll) {
+      // nextPoll could be modified, or just someone else voted
+      const prevNames = [prevPoll.name, ...prevPoll.choices.map(val => val.choice)];
+      const nextNames = [nextPoll.name, ...nextPoll.choices.map(val => val.choice)];
+      let onlyVote = true;
+      if (prevNames.length !== nextNames.length) {
+        onlyVote = false;
+      }
+      for (let i = 0; i < prevNames.length; i++) {
+        if (prevNames[i] !== nextNames[i]) {
+          onlyVote = false;
+        }
+      }
+
+      if (onlyVote === false) {
+        this.modifiedPoll = nextPoll;
+        this.setState({
+          fetching: false,
+          modified: true
+        });
+      } else {
+        this.setState({
+          poll: nextPoll
+        });
+      }
     }
   }
 
@@ -78,8 +105,9 @@ export default class PollPage extends React.Component {
   }
 
   updateView = () => {
-    this.originalPoll = this.modifiedPoll;
-    this.setState({ modified: false });
+    this.setState({ modified: false, poll: this.modifiedPoll });
+    this.modifiedPoll = undefined;
+
   }
 
   render () {
@@ -87,7 +115,7 @@ export default class PollPage extends React.Component {
       return (<h2>Connecting...</h2>);
     }
 
-    const poll = this.originalPoll;
+    const poll = this.state.poll;
     const user = this.props.user;
 
     const NotificationDelete = () => {
@@ -120,7 +148,11 @@ export default class PollPage extends React.Component {
         <EditButton user={user} poll={poll}/>
         <div className="choices">
         {
-          poll.choices.map((choice, id) => <Choice key={id} choice={choice.choice}/>)
+          poll.choices.map((choice, id) =>
+            <Choice key={id} choice={choice.choice}
+              checked={this.state.chosen === id ? { checked: true } : {}}
+              handler={this.selectedChoice.bind(this, id)}/>
+          )
         }
         </div>
         <Chart poll={poll}/>
