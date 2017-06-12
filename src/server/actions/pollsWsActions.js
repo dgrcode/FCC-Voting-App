@@ -1,37 +1,31 @@
 module.exports = {
   communicatePolls: (pollsObj) => ({
     type: 'COMM_POLLS',
-    data: pollsObj,
-    isAction: true
+    data: pollsObj
   }),
 
   communicateNewPollHold: (pollObj) => ({
     type: 'COMM_NEW_POLL_HOLD',
-    data: pollObj,
-    isAction: true
+    data: pollObj
   }),
 
   communicateNewPoll: (pollObj) => ({
     type: 'COMM_NEW_POLL',
-    data: pollObj,
-    isAction: true
+    data: pollObj
   }),
 
   communicateUpdatedPollHold: (pollObj) => ({
     type: 'COMM_UPDATED_POLL_HOLD',
-    data: pollObj,
-    isAction: true
+    data: pollObj
   }),
 
   communicateUpdatedPoll: (pollObj) => ({
     type: 'COMM_UPDATED_POLL',
-    data: pollObj,
-    isAction: true
+    data: pollObj
   }),
 
   communicateDeletePoll: (pollId) => ({
     type: 'COMM_DELETE_POLL',
-    data: pollId,
-    isAction: true
+    data: pollId
   })
 };

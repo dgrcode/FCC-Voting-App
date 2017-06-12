@@ -7,20 +7,17 @@ export const createPoll = (poll) => ({
 
 export const communicateNewPoll = (poll) => ({
   type: 'COMM_NEW_POLL',
-  data: poll,
-  isAction: true
+  data: poll
 });
 
 export const communicateUpdatedPoll = (poll) => ({
   type: 'COMM_UPDATED_POLL',
-  data: poll,
-  isAction: true
+  data: poll
 });
 
 export const communicateDeletePoll = (pollId) => ({
   type: 'COMM_DELETE_POLL',
-  data: pollId,
-  isAction: true
+  data: pollId
 });
 
 export const showOnHoldPolls = () => ({

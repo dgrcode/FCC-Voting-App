@@ -2,6 +2,5 @@
 
 export const getPoll = (pollId) => ({
   type: 'COMM_GET_POLL',
-  pollId,
-  isAction: true
+  pollId
 });

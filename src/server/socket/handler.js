@@ -23,6 +23,7 @@ module.exports = (app) => {
 
     ws.on('message', (m) => {
       m = JSON.parse(m);
+      console.log('NEW action.type:', m.type);
       switch (m.type) {
       case 'COMM_NEW_POLL':
         console.log('Recibe un nuevo poll');
