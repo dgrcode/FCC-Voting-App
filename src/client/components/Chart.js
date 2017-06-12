@@ -26,14 +26,16 @@ export default class ChartView extends React.Component {
     };
     const canvas = document.getElementById('chart');
     const ctx = canvas.getContext('2d');
-    const chart_ = new Chart(ctx, {
+    const chart = new Chart(ctx, {
       type: 'bar',
       data,
       options: {
         scales: {
           yAxes: [{
             ticks: {
-              beginAtZero: true
+              beginAtZero: true,
+              suggestedMax: Math.max(...votes) + 2,
+              stepSize: 1
             }
           }]
         }
