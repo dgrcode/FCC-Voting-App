@@ -37,5 +37,9 @@ module.exports = {
     const deleteData = pollsActions.communicateDeletePoll(pollId);
     console.log(deleteData);
     ws.send(JSON.stringify(deleteData));
+  },
+
+  sendVote: (ws, updateVote) => {
+    ws.send(updateVote);
   }
 };

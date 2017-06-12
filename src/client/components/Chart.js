@@ -4,16 +4,14 @@ import PropTypes from 'prop-types';
 
 export default class ChartView extends React.Component {
   static propTypes = {
-    poll: PropTypes.object.isRequired
+    labels: PropTypes.array.isRequired,
+    votes: PropTypes.array.isRequired,
+    selectedHandler: PropTypes.func.isRequired
   }
 
   componentDidMount () {
-    const poll = this.props.poll;
-    const [labels, votes] = poll.choices.reduce((accum, choice) => {
-      accum[0].push(choice.choice);
-      accum[1].push(choice.votes);
-      return accum;
-    }, [[], []]);
+    const votes = this.props.votes;
+    const labels = this.props.labels;
     console.log(labels);
     console.log(votes);
     const data = {
@@ -41,12 +39,34 @@ export default class ChartView extends React.Component {
         }
       }
     });
+
+    this.chart = chart;
+  }
+
+  componentWillReceiveProps (nextProps) {
+    // TODO check if the max vote value is out of bounds to increase y label
+    console.log('chart willreceiveprops');
+    this.chart.data.datasets[0].data = nextProps.votes;
+    this.chart.update();
+  }
+
+  shouldComponentUpdate () {
+    return false;
+  }
+
+  clickHandler = (e) => {
+    if (this.chart.getDatasetAtEvent(e).length === 0) {
+      return;
+    }
+    const elem = this.chart.getElementsAtEvent(e);
+    const id = elem[0]._index;
+    this.props.selectedHandler(id);
   }
 
   render () {
     return (
       <div id="chart-container">
-        <canvas id="chart" height="300px" width="500px"/>
+        <canvas id="chart" height="300px" width="500px" onClick={this.clickHandler}/>
       </div>
     );
   }

@@ -6,6 +6,7 @@ import PollPage from '../components/PollPage';
 const mapStateToProps = (state, ownProps) => {
   return {
     polls: [...state.polls.visible, ...state.polls.hold],
+    tempVotes: state.votes.temp,
     user: state.user,
     ws: ownProps.ws
   };

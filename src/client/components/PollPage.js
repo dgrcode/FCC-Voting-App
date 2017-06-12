@@ -3,12 +3,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { getPoll } from '../actions/connectionActions';
+import { communicateTempVote } from '../actions/voteActions';
 import EditButton from './EditButton';
 import Chart from './Chart';
 
 export default class PollPage extends React.Component {
   static propTypes = {
     polls: PropTypes.array.isRequired,
+    tempVotes: PropTypes.object.isRequired,
     match: PropTypes.object.isRequired,
     user: PropTypes.object,
     ws: PropTypes.instanceOf(WebSocket).isRequired,
@@ -107,7 +109,27 @@ export default class PollPage extends React.Component {
   updateView = () => {
     this.setState({ modified: false, poll: this.modifiedPoll });
     this.modifiedPoll = undefined;
+  }
 
+  selectedChoice = (choiceId) => {
+    const updatedChoices = this.state.poll.choices;
+    const ws = this.props.ws;
+    if (this.state.chosen !== -1) {
+      const voteData = communicateTempVote(
+        this.state.poll._id, this.state.chosen, -1);
+      ws.send(JSON.stringify(voteData));
+      updatedChoices[this.state.chosen].votes--;
+    }
+    if (this.state.chosen !== choiceId) {
+      const voteData = communicateTempVote(this.state.poll._id, choiceId, 1);
+      ws.send(JSON.stringify(voteData));
+      updatedChoices[choiceId].votes++;
+    } else {
+      choiceId = -1;
+    }
+    const updatedPoll =
+      Object.assign({}, this.state.poll, { choices: updatedChoices });
+    this.setState({ poll: updatedPoll, chosen: choiceId });
   }
 
   render () {
@@ -135,9 +157,25 @@ export default class PollPage extends React.Component {
     };
     const Choice = (props) => (
       <div className="choice">
-        <label>{props.choice}<input type="radio" name="choices"/></label>
+        <label>{props.choice}
+          <input type="radio" name="choices"
+            {...props.checked}
+            onClick={props.handler}/>
+        </label>
       </div>
     );
+
+    const pollTempVotes = [];
+    if (this.props.tempVotes.hasOwnProperty(poll._id)) {
+      // This will get slow if a poll has more than 10000 choices. Not likely
+      // to happen
+      for (let ch = 0; ch < poll.choices.length; ch++) {
+        pollTempVotes.push(
+          this.props.tempVotes[poll._id]
+            .reduce((acc, tmpv) => tmpv.choiceId === ch ? acc + tmpv.amount : acc, 0)
+        );
+      }
+    }
 
     return (
       <div className="app-content">
@@ -155,8 +193,11 @@ export default class PollPage extends React.Component {
           )
         }
         </div>
-        <Chart poll={poll}/>
-        <textarea value={JSON.stringify(this.state)}/>
+        <Chart
+          votes={poll.choices.map((val, idx) => val.votes + (pollTempVotes[idx] || 0))}
+          labels={poll.choices.map(val => val.choice)}
+          selectedHandler={this.selectedChoice}
+        />
       </div>
     );
   }

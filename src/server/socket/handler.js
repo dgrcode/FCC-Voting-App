@@ -69,6 +69,14 @@ module.exports = (app) => {
         .catch(err => console.log(err));
         break;
 
+      case 'COMM_TEMP_VOTE':
+        // TODO I could filter and send this information only to the people
+        // looking at the specific poll, at m.payload.pollId. To implement this
+        // I need to send to the server where is each client when they enter
+        // in a new poll page.
+        broadcastWithoutOriginator(pollsSocket.sendVote, ws, JSON.stringify(m));
+        break;
+
       default:
         // do nothing
         console.log('Recibe algo desconocido');
