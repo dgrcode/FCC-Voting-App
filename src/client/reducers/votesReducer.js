@@ -1,6 +1,6 @@
 'use strict';
 
-const defaultVoteState = { pending: [], temp: [] };
+const defaultVoteState = { pending: { length: 0 }, temp: [] };
 
 export default function votesReducer (state = defaultVoteState, action) {
   switch (action.type) {
@@ -26,6 +26,22 @@ export default function votesReducer (state = defaultVoteState, action) {
       temp: Object.assign({}, state.temp, pollTempVotes)
     });
 
+  case 'PENDING_VOTE':
+    const pollId = action.payload.pollId;
+    const choiceId = action.payload.choiceId;
+    const obj = Object.assign({}, state.pending);
+    if (choiceId === -1) {
+      if (obj.hasOwnProperty(pollId)) {
+        obj.length--;
+      }
+      Reflect.deleteProperty(obj, pollId);
+      return { pending: obj, temp: state.temp };
+    }
+    if (!obj.hasOwnProperty(pollId)) {
+      obj.length++;
+    }
+    obj[pollId] = choiceId;
+    return { pending: obj, temp: state.temp };
 /*
   case 'COMM_VOTE':
     const pollId = action.payload.pollId;

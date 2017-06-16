@@ -3,14 +3,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { getPoll } from '../actions/connectionActions';
-import { communicateTempVote } from '../actions/voteActions';
+import { communicateTempVote, pendingVote } from '../actions/voteActions';
 import EditButton from './EditButton';
 import Chart from './Chart';
 
 export default class PollPage extends React.Component {
   static propTypes = {
     polls: PropTypes.array.isRequired,
-    tempVotes: PropTypes.object.isRequired,
+    tempVotes: PropTypes.array.isRequired,
+    pendingVotes: PropTypes.array.isRequired,
     match: PropTypes.object.isRequired,
     user: PropTypes.object,
     ws: PropTypes.instanceOf(WebSocket).isRequired,
@@ -23,8 +24,7 @@ export default class PollPage extends React.Component {
       fetching: true,
       deleted: false,
       modified: false,
-      poll: false,
-      chosen: -1
+      poll: false
     };
   }
 
@@ -112,24 +112,22 @@ export default class PollPage extends React.Component {
   }
 
   selectedChoice = (choiceId) => {
-    const updatedChoices = this.state.poll.choices;
     const ws = this.props.ws;
-    if (this.state.chosen !== -1) {
+    const poll = this.state.poll;
+    const chosen = this.props.pendingVotes[poll._id] !== undefined ?
+      this.props.pendingVotes[poll._id] : -1;
+    if (chosen !== -1) {
       const voteData = communicateTempVote(
-        this.state.poll._id, this.state.chosen, -1);
+        this.state.poll._id, chosen, -1);
       ws.send(JSON.stringify(voteData));
-      updatedChoices[this.state.chosen].votes--;
     }
-    if (this.state.chosen !== choiceId) {
+    if (chosen !== choiceId) {
       const voteData = communicateTempVote(this.state.poll._id, choiceId, 1);
       ws.send(JSON.stringify(voteData));
-      updatedChoices[choiceId].votes++;
     } else {
       choiceId = -1;
     }
-    const updatedPoll =
-      Object.assign({}, this.state.poll, { choices: updatedChoices });
-    this.setState({ poll: updatedPoll, chosen: choiceId });
+    this.props.dispatch(pendingVote(this.state.poll._id, choiceId));
   }
 
   render () {
@@ -177,6 +175,10 @@ export default class PollPage extends React.Component {
       }
     }
 
+    const chosen = this.props.pendingVotes[poll._id] !== undefined ?
+      this.props.pendingVotes[poll._id] : -1;
+    console.log('selected id:', chosen);
+
     return (
       <div className="app-content">
         <h2>{poll.name}</h2>
@@ -188,13 +190,15 @@ export default class PollPage extends React.Component {
         {
           poll.choices.map((choice, id) =>
             <Choice key={id} choice={choice.choice}
-              checked={this.state.chosen === id ? { checked: true } : {}}
+              checked={chosen === id ? { checked: true } : {}}
               handler={this.selectedChoice.bind(this, id)}/>
           )
         }
         </div>
         <Chart
-          votes={poll.choices.map((val, idx) => val.votes + (pollTempVotes[idx] || 0))}
+          votes={poll.choices.map((val, idx) =>
+            val.votes + (idx === chosen ? 1 : 0) + (pollTempVotes[idx] || 0)
+          )}
           labels={poll.choices.map(val => val.choice)}
           selectedHandler={this.selectedChoice}
         />

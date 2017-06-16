@@ -3,6 +3,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import UserOptionsContainer from '../containers/UserOptionsContainer';
+import VotesPendingContainer from '../containers/VotesPendingContainer';
 
 export default class Navbar extends React.Component {
   render () {
@@ -15,6 +16,7 @@ export default class Navbar extends React.Component {
             <span className="glyphicon glyphicon-search" aria-hidden="true" role="button"/>
           </div>
           <div className="nav-right">
+            <VotesPendingContainer/>
             <UserOptionsContainer/>
           </div>
         </div>
