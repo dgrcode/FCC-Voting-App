@@ -13,7 +13,8 @@ import Layout from './client/components/Layout';
 import commonStyle_ from './public/styles/common.sass';
 import { getCookie, deleteCookie } from './utils/cookies';
 
-const store = createStore(reducers);
+const store = createStore(reducers,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 const history = createBrowserHistory();
 
 const ws = new WebSocket('ws://localhost:8080');
